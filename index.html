@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Redação Turbo</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+                h1 { color: #2e8b57; }
+                    textarea { width: 100%; height: 120px; margin: 10px 0; }
+                        button { margin: 5px; padding: 10px 15px; border: none; border-radius: 8px; cursor: pointer; }
+                            .gerar { background: #2e8b57; color: #fff; }
+                                .copiar { background: #4682b4; color: #fff; }
+                                    .apagar { background: #b22222; color: #fff; }
+                                        #saida { margin-top: 20px; padding: 15px; background: #fff; border-radius: 8px; min-height: 200px; white-space: pre-line; }
+                                          </style>
+                                          </head>
+                                          <body>
+                                            <h1>🚀 Redação Turbo</h1>
+                                              <label for="tema">Tema da Redação:</label>
+                                                <textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
+                                                  <br>
+                                                    <button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
+                                                      <button class="copiar" onclick="copiarRedacao()">Copiar</button>
+                                                        <button class="apagar" onclick="apagarRedacao()">Apagar</button>
+
+                                                          <div id="saida">Sua redação aparecerá aqui...</div>
+
+                                                            <script>
+                                                                async function gerarRedacao() {
+                                                                      const tema = document.getElementById("tema").value;
+                                                                            if (!tema) {
+                                                                                    alert("Digite um tema primeiro!");
+                                                                                            return;
+                                                                                                  }
+                                                                                                        document.getElementById("saida").innerText = "⏳ Gerando redação...";
+                                                                                                              
+                                                                                                                    const res = await fetch("/api/redacao", {
+                                                                                                                            method: "POST",
+                                                                                                                                    headers: { "Content-Type": "application/json" },
+                                                                                                                                            body: JSON.stringify({ tema })
+                                                                                                                                                  });
+                                                                                                                                                        const data = await res.json();
+                                                                                                                                                              document.getElementById("saida").innerText = data.redacao || "Erro ao gerar redação.";
+                                                                                                                                                                  }
+
+                                                                                                                                                                      function copiarRedacao() {
+                                                                                                                                                                            const texto = document.getElementById("saida").innerText;
+                                                                                                                                                                                  navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                          function apagarRedacao() {
+                                                                                                                                                                                                document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
+                                                                                                                                                                                                      document.getElementById("tema").value = "";
+                                                                                                                                                                                                          }
+                                                                                                                                                                                                            </script>
+                                                                                                                                                                                                            </body>
+                                                                                                                                                                                                            </html>
