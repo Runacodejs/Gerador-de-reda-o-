@@ -1,58 +1,141 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Redação Turbo</title>
-        <style>
-            body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
-                h1 { color: #2e8b57; }
-                    textarea { width: 100%; height: 120px; margin: 10px 0; }
-                        button { margin: 5px; padding: 10px 15px; border: none; border-radius: 8px; cursor: pointer; }
-                            .gerar { background: #2e8b57; color: #fff; }
-                                .copiar { background: #4682b4; color: #fff; }
-                                    .apagar { background: #b22222; color: #fff; }
-                                        #saida { margin-top: 20px; padding: 15px; background: #fff; border-radius: 8px; min-height: 200px; white-space: pre-line; }
-                                          </style>
-                                          </head>
-                                          <body>
-                                            <h1>🚀 Redação Turbo</h1>
-                                              <label for="tema">Tema da Redação:</label>
-                                                <textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
-                                                  <br>
-                                                    <button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
-                                                      <button class="copiar" onclick="copiarRedacao()">Copiar</button>
-                                                        <button class="apagar" onclick="apagarRedacao()">Apagar</button>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redação Turbo</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #121212;
+  color: #f0f0f0;
+}
+h1 {
+  color: #1E90FF;
+  text-align: center;
+}
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+textarea {
+  width: 100%;
+  height: 140px;
+  margin: 10px 0;
+  padding: 12px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: #f0f0f0;
+  font-size: 16px;
+  resize: vertical;
+}
+button {
+  margin: 5px 5px 5px 0;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.gerar { background-color: #2e8b57; color: #fff; }
+.gerar:hover { background-color: #246f45; }
+.copiar { background-color: #4682b4; color: #fff; }
+.copiar:hover { background-color: #35638a; }
+.apagar { background-color: #b22222; color: #fff; }
+.apagar:hover { background-color: #8a1717; }
+#saida {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  min-height: 220px;
+  white-space: pre-line;
+  border: 1px solid #333;
+  font-size: 16px;
+  position: relative;
+}
+.loader {
+  display: inline-block;
+}
+.loader span {
+  display: inline-block;
+  animation: jump 0.6s infinite;
+}
+.loader span:nth-child(2) { animation-delay: 0.2s; }
+.loader span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes jump {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+}
+footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #aaa;
+  font-size: 14px;
+}
+footer span { font-size: 12px; display: block; margin-top: 5px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🚀 Redação Turbo</h1>
 
-                                                          <div id="saida">Sua redação aparecerá aqui...</div>
+<label for="tema">Tema da Redação:</label>
+<textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
+<br>
+<button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
+<button class="copiar" onclick="copiarRedacao()">Copiar</button>
+<button class="apagar" onclick="apagarRedacao()">Apagar</button>
 
-                                                            <script>
-                                                                async function gerarRedacao() {
-                                                                      const tema = document.getElementById("tema").value;
-                                                                            if (!tema) {
-                                                                                    alert("Digite um tema primeiro!");
-                                                                                            return;
-                                                                                                  }
-                                                                                                        document.getElementById("saida").innerText = "⏳ Gerando redação...";
-                                                                                                              
-                                                                                                                    const res = await fetch("/api/redacao", {
-                                                                                                                            method: "POST",
-                                                                                                                                    headers: { "Content-Type": "application/json" },
-                                                                                                                                            body: JSON.stringify({ tema })
-                                                                                                                                                  });
-                                                                                                                                                        const data = await res.json();
-                                                                                                                                                              document.getElementById("saida").innerText = data.redacao || "Erro ao gerar redação.";
-                                                                                                                                                                  }
+<div id="saida">Sua redação aparecerá aqui...</div>
 
-                                                                                                                                                                      function copiarRedacao() {
-                                                                                                                                                                            const texto = document.getElementById("saida").innerText;
-                                                                                                                                                                                  navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
-                                                                                                                                                                                      }
+<footer>
+Desenvolvido por <strong style="color: #1E90FF;">kel_mod</strong> | Servidor: <strong>Runacode</strong>
+<span>© 2025 Todos os direitos reservados</span>
+</footer>
+</div>
 
-                                                                                                                                                                                          function apagarRedacao() {
-                                                                                                                                                                                                document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
-                                                                                                                                                                                                      document.getElementById("tema").value = "";
-                                                                                                                                                                                                          }
-                                                                                                                                                                                                            </script>
-                                                                                                                                                                                                            </body>
-                                                                                                                                                                                                            </html>
+<script>
+function showLoader() {
+  const loader = document.createElement('span');
+  loader.className = 'loader';
+  loader.innerHTML = '<span>⏳</span><span>⏳</span><span>⏳</span> Gerando redação...';
+  document.getElementById('saida').innerHTML = '';
+  document.getElementById('saida').appendChild(loader);
+}
+
+async function gerarRedacao() {
+  const tema = document.getElementById("tema").value;
+  if (!tema) { alert("Digite um tema primeiro!"); return; }
+
+  showLoader();
+
+  try {
+    const res = await fetch("/api/redacao", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tema })
+    });
+    const data = await res.json();
+    document.getElementById("saida").innerText = data.redacao || "Erro ao gerar redação.";
+  } catch {
+    document.getElementById("saida").innerText = "Erro ao gerar redação.";
+  }
+}
+
+function copiarRedacao() {
+  const texto = document.getElementById("saida").innerText;
+  navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
+}
+
+function apagarRedacao() {
+  document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
+  document.getElementById("tema").value = "";
+}
+</script>
+</body>
+</html>
