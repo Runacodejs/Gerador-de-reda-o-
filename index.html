@@ -10,6 +10,7 @@
       --secondary-color: #007bff;
       --background-color: #121212;
       --text-color: #ffffff;
+      --owner-color: #00bfff;
     }
 
     * {
@@ -20,32 +21,72 @@
     }
 
     body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
       background-color: var(--background-color);
       color: var(--text-color);
       text-align: center;
-      padding: 20px;
+      overflow: hidden;
+      position: relative;
     }
 
     h1 {
       font-size: 3rem;
       color: var(--primary-color);
-      margin-bottom: 20px;
+      margin-top: 40vh;
     }
 
     .server {
-      margin-top: 40px;
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
       font-size: 1rem;
       color: var(--secondary-color);
+    }
+
+    .owner {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--owner-color);
+    }
+
+    .particle {
+      position: absolute;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
     }
   </style>
 </head>
 <body>
   <h1>Em Manutenção</h1>
   <div class="server">Servidor Runacode - Todos os direitos reservados</div>
+  <div class="owner">Dono do servidor: kel_mod</div>
+
+  <script>
+    const particleCount = 30;
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.width = 5 + Math.random() * 10 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.animationDuration = 3 + Math.random() * 5 + 's';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(particle);
+    }
+  </script>
 </body>
 </html>
