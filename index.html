@@ -31,9 +31,10 @@
     h1 {
       font-size: 3rem;
       color: #28a745;
-      margin-top: 40vh;
-      position: relative;
-      z-index: 2;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .server {
@@ -43,7 +44,6 @@
       text-align: center;
       font-size: 1rem;
       color: var(--server-color);
-      z-index: 2;
     }
 
     .owner {
@@ -53,23 +53,20 @@
       text-align: center;
       font-size: 0.9rem;
       color: var(--owner-color);
-      z-index: 2;
     }
 
     .particle {
       position: absolute;
-      top: -10px;
       width: 10px;
       height: 10px;
       border-radius: 50%;
       animation: fall linear infinite;
       opacity: 0.8;
-      z-index: 1;
     }
 
     @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
+      0% { top: -20px; opacity: 1; }
+      100% { top: 110vh; opacity: 0; }
     }
   </style>
 </head>
