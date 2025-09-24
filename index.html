@@ -72,53 +72,38 @@
 <body>
   <h1>Em Manutenção</h1>
 
-  <footer>
-    Servidor Runacode © 2025 — Dono: kel_mod — Todos os direitos reservados
-  </footer>
+  <footer>Servidor Runacode © 2025 — Dono: kel_mod — Todos os direitos reservados</footer>
 
-<script>
-const colors = ['#28a745', '#007bff', '#ff0000', '#ffff00', '#ff69b4', '#00ffff'];
-const particleCount = 100;
+  <script>
+    const colors = ['#28a745', '#007bff', '#ff0000', '#ffff00', '#ff69b4', '#00ffff'];
+    const particleCount = 100;
 
-for (let i = 0; i < particleCount; i++) {
-  const particle = document.createElement('div');
-  particle.classList.add('particle');
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
 
-  const size = 5 + Math.random() * 10;
-  particle.style.width = size + 'px';
-  particle.style.height = size + 'px';
+      const size = 5 + Math.random() * 10;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
 
-  // começa já acima da tela
-  particle.style.top = Math.random() * -20 + 'vh'; 
-  particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.top = Math.random() * -20 + 'vh'; 
+      particle.style.left = Math.random() * 100 + 'vw';
 
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  particle.style.backgroundColor = color;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.backgroundColor = color;
 
-  const duration = 3 + Math.random() * 5;
-  particle.style.animationDuration = duration + 's';
-  particle.style.animationDelay = Math.random() * 5 + 's';
+      const duration = 3 + Math.random() * 5;
+      particle.style.animationDuration = duration + 's';
+      particle.style.animationDelay = Math.random() * 5 + 's';
 
-  if (color === '#28a745') {
-    particle.style.animationName = 'fall, blink';
-    particle.style.animationDuration = `${duration}s, ${0.5 + Math.random()}s`;
-    particle.style.animationIterationCount = 'infinite';
-  }
+      if (color === '#28a745') {
+        particle.style.animationName = 'fall, blink';
+        particle.style.animationDuration = `${duration}s, ${0.5 + Math.random()}s`;
+        particle.style.animationIterationCount = 'infinite';
+      }
 
-  document.body.appendChild(particle);
-}
-</script>
+      document.body.appendChild(particle);
+    }
+  </script>
 </body>
 </html>
-                                                                                                                                                    function copiarRedacao() {
-                                                                                                                                                      const texto = document.getElementById("saida").innerText;
-                                                                                                                                                        navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
-                                                                                                                                                        }
-
-                                                                                                                                                        function apagarRedacao() {
-                                                                                                                                                          document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
-                                                                                                                                                            document.getElementById("tema").value = "";
-                                                                                                                                                            }
-                                                                                                                                                            </script>
-                                                                                                                                                            </body>
-                                                                                                                                                            </html>
