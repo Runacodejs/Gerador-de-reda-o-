@@ -1,112 +1,91 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Em Manutenção</title>
-  <style>
-    :root {
-      --background-color: #121212;
-      --text-color: #ffffff;
-      --server-color: #007bff;
-      --owner-color: #00bfff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Em Manutenção</title>
+<style>
+  :root {
+    --background-color: #121212;
+    --text-color: #ffffff;
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
 
-    body {
-      height: 100vh;
-      background-color: var(--background-color);
-      color: var(--text-color);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
+  body {
+    height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
 
-    /* Logo no topo à esquerda */
-    .logo {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 100px;
-      height: auto;
-      z-index: 2;
-    }
+  h1 {
+    font-size: 3rem;
+    color: #28a745;
+    z-index: 1;
+    text-align: center;
+  }
 
-    h1 {
-      font-size: 3rem;
-      color: #28a745;
-      z-index: 1;
-      text-align: center;
-    }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall linear infinite;
+  }
 
-    .server {
-      position: absolute;
-      bottom: 30px;
-      width: 100%;
-      text-align: center;
-      font-size: 1rem;
-      color: var(--server-color);
-      z-index: 1;
-    }
+  @keyframes fall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(110vh); }
+  }
 
-    .owner {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--owner-color);
-      z-index: 1;
-    }
-
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: fall linear infinite;
-      animation-timing-function: ease-in;
-    }
-
-    @keyframes fall {
-      0% { top: -20px; opacity: 1; }
-      100% { top: 110vh; opacity: 0; }
-    }
-  </style>
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 0.8; }
+    25%, 75% { opacity: 0.2; }
+  }
+</style>
 </head>
 <body>
-  <!-- Logo no topo -->
-  <img src="logo.png" alt="Logo Runacode" class="logo">
+<h1>Em Manutenção</h1>
 
-  <!-- Texto centralizado -->
-  <h1>Em Manutenção</h1>
+<script>
+const colors = ['#28a745', '#007bff', '#ff0000', '#ffff00', '#ff69b4', '#00ffff'];
+const particleCount = 80;
 
-  <div class="server">Servidor Runacode - Todos os direitos reservados</div>
-  <div class="owner">Dono do servidor: kel_mod</div>
+for (let i = 0; i < particleCount; i++) {
+  const particle = document.createElement('div');
+  particle.classList.add('particle');
 
-  <script>
-    const colors = ['#28a745', '#007bff', '#ff0000', '#ffff00', '#ff69b4', '#00ffff'];
-    const particleCount = 80; // mais partículas para efeito melhor
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      const size = 5 + Math.random() * 10;
-      particle.style.width = size + 'px';
-      particle.style.height = size + 'px';
-      particle.style.left = Math.random() * 100 + 'vw';
-      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      particle.style.animationDuration = 3 + Math.random() * 5 + 's';
-      particle.style.animationDelay = Math.random() * 5 + 's';
-      document.body.appendChild(particle);
-    }
-  </script>
+  const size = 5 + Math.random() * 10;
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
+
+  particle.style.top = '0px';
+  particle.style.left = Math.random() * 100 + 'vw';
+
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  particle.style.backgroundColor = color;
+
+  const duration = 3 + Math.random() * 5;
+  particle.style.animationDuration = duration + 's';
+  particle.style.animationDelay = Math.random() * 5 + 's';
+
+  if (color === '#28a745') {
+    particle.style.animationName = 'fall, blink';
+    particle.style.animationDuration = `${duration}s, ${0.5 + Math.random()}s`;
+    particle.style.animationIterationCount = 'infinite';
+  }
+
+  document.body.appendChild(particle);
+}
+</script>
 </body>
 </html>
