@@ -28,6 +28,15 @@
       position: relative;
     }
 
+    /* Logo pequena no topo à esquerda */
+    .logo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 50px;   /* tamanho reduzido da logo */
+      height: auto;
+    }
+
     h1 {
       font-size: 3rem;
       color: #28a745;
@@ -71,7 +80,12 @@
   </style>
 </head>
 <body>
+  <!-- Logo pequena no topo -->
+  <img src="logo.png" alt="Logo Runacode" class="logo">
+
+  <!-- Texto centralizado -->
   <h1>Em Manutenção</h1>
+
   <div class="server">Servidor Runacode - Todos os direitos reservados</div>
   <div class="owner">Dono do servidor: kel_mod</div>
 
