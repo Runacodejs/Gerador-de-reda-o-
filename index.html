@@ -23,27 +23,29 @@
       height: 100vh;
       background-color: var(--background-color);
       color: var(--text-color);
-      text-align: center;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       position: relative;
     }
 
-    /* Logo pequena no topo à esquerda */
+    /* Logo no topo à esquerda */
     .logo {
       position: absolute;
-      top: 15px;
-      left: 15px;
-      width: 50px;   /* tamanho reduzido da logo */
+      top: 20px;
+      left: 20px;
+      width: 100px;
       height: auto;
+      z-index: 2;
     }
 
     h1 {
       font-size: 3rem;
       color: #28a745;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      z-index: 1;
+      text-align: center;
     }
 
     .server {
@@ -53,6 +55,7 @@
       text-align: center;
       font-size: 1rem;
       color: var(--server-color);
+      z-index: 1;
     }
 
     .owner {
@@ -62,15 +65,15 @@
       text-align: center;
       font-size: 0.9rem;
       color: var(--owner-color);
+      z-index: 1;
     }
 
     .particle {
       position: absolute;
-      width: 10px;
-      height: 10px;
       border-radius: 50%;
-      animation: fall linear infinite;
       opacity: 0.8;
+      animation: fall linear infinite;
+      animation-timing-function: ease-in;
     }
 
     @keyframes fall {
@@ -80,7 +83,7 @@
   </style>
 </head>
 <body>
-  <!-- Logo pequena no topo -->
+  <!-- Logo no topo -->
   <img src="logo.png" alt="Logo Runacode" class="logo">
 
   <!-- Texto centralizado -->
@@ -91,14 +94,14 @@
 
   <script>
     const colors = ['#28a745', '#007bff', '#ff0000', '#ffff00', '#ff69b4', '#00ffff'];
-    const particleCount = 50;
+    const particleCount = 80; // mais partículas para efeito melhor
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
-      particle.style.left = Math.random() * 100 + 'vw';
       const size = 5 + Math.random() * 10;
       particle.style.width = size + 'px';
       particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + 'vw';
       particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
       particle.style.animationDuration = 3 + Math.random() * 5 + 's';
       particle.style.animationDelay = Math.random() * 5 + 's';
