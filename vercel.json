@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/redacao.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/redacao",
+      "destination": "/api/redacao.js"
+    }
+  ]
+}
