@@ -1,13 +1,28 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/redacao",
+      "dest": "/api/redacao.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
   "functions": {
     "api/redacao.js": {
       "maxDuration": 30
     }
-  },
-  "rewrites": [
-    {
-      "source": "/api/redacao",
-      "destination": "/api/redacao.js"
-    }
-  ]
+  }
 }
