@@ -11,14 +11,18 @@ body {
   padding: 20px;
   background-color: #121212;
   color: #f0f0f0;
+  font-size: 16px;
+  line-height: 1.5;
 }
 h1 {
   color: #1E90FF;
   text-align: center;
+  margin-bottom: 30px;
 }
 .container {
   max-width: 800px;
   margin: auto;
+  width: 100%;
 }
 textarea {
   width: 100%;
@@ -31,15 +35,20 @@ textarea {
   color: #f0f0f0;
   font-size: 16px;
   resize: vertical;
+  box-sizing: border-box;
+  -webkit-appearance: none;
 }
 button {
   margin: 5px 5px 5px 0;
-  padding: 12px 20px;
+  padding: 14px 24px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 16px;
   transition: all 0.2s ease;
+  min-height: 48px;
+  touch-action: manipulation;
 }
 .gerar { background-color: #2e8b57; color: #fff; }
 .gerar:hover { background-color: #246f45; }
@@ -57,6 +66,8 @@ button {
   border: 1px solid #333;
   font-size: 16px;
   position: relative;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .loader {
   display: inline-block;
@@ -78,6 +89,110 @@ footer {
   font-size: 14px;
 }
 footer span { font-size: 12px; display: block; margin-top: 5px; }
+
+/* Media Queries para dispositivos móveis */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 15px;
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .container {
+    padding: 0 5px;
+  }
+  
+  textarea {
+    height: 120px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+  
+  button {
+    width: 100%;
+    margin: 8px 0;
+    padding: 16px 20px;
+    font-size: 18px;
+    min-height: 50px;
+    border-radius: 8px;
+  }
+  
+  #saida {
+    padding: 15px;
+    min-height: 180px;
+    font-size: 14px;
+    line-height: 1.6;
+    border-radius: 8px;
+  }
+  
+  footer {
+    margin-top: 30px;
+    font-size: 12px;
+    padding: 0 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .container {
+    padding: 0;
+  }
+  
+  textarea {
+    height: 100px;
+    padding: 12px;
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  
+  button {
+    padding: 18px 16px;
+    margin: 6px 0;
+    font-size: 16px;
+    min-height: 52px;
+  }
+  
+  #saida {
+    padding: 12px;
+    min-height: 160px;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  
+  footer {
+    margin-top: 25px;
+    font-size: 11px;
+  }
+  
+  .loader {
+    font-size: 14px;
+  }
+}
+
+/* Melhorias para dispositivos touch */
+@media (hover: none) and (pointer: coarse) {
+  button:hover {
+    transform: none;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+}
 </style>
 </head>
 <body>
