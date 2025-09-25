@@ -2,7 +2,6 @@
   "version": 2,
   "functions": {
     "api/redacao.js": {
-      "runtime": "nodejs18.x",
       "maxDuration": 30
     }
   },
