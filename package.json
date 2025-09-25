@@ -1,18 +1,22 @@
 {
-  "name": "workspace",
+  "name": "redacao-turbo",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.html",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
+    "build": "echo 'No build step required'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["redacao", "ai", "gemini", "portuguese"],
+  "author": "kel_mod",
   "license": "ISC",
-  "description": "",
+  "description": "Gerador de redações em português usando IA Gemini",
   "dependencies": {
     "@google/genai": "^1.20.0",
     "express": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
