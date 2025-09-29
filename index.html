@@ -19,7 +19,10 @@ button { margin:5px 5px 5px 0; padding:14px 24px; border:none; border-radius:10p
 .loader span:nth-child(2){ animation-delay:0.2s; }
 .loader span:nth-child(3){ animation-delay:0.4s; }
 @keyframes jump { 0%,80%,100%{transform:translateY(0);} 40%{transform:translateY(-8px);} }
-.footer-highlight { color:#1E90FF; }
+
+/* Nova classe para os nomes azuis */
+.footer-nome { color:#1E90FF; font-weight:bold; }
+
 footer { margin-top:40px; text-align:center; color:#aaa; font-size:14px; }
 footer span { font-size:12px; display:block; margin-top:5px; }
 </style>
@@ -38,13 +41,13 @@ footer span { font-size:12px; display:block; margin-top:5px; }
 <div id="saida">Sua redação aparecerá aqui...</div>
 
 <footer>
-Desenvolvido por <strong class="footer-highlight">kel_mod</strong> | Servidor: <strong class="footer-highlight">Runacode</strong>
+Desenvolvido por <span class="footer-nome">kel_mod</span> | Servidor: <span class="footer-nome">Runacode</span>
 <span>© 2025 Todos os direitos reservados</span>
 </footer>
 </div>
 
 <script>
-// Banco de redações no próprio HTML
+// Banco de redações
 var redacoes = {
   "meio ambiente": "O meio ambiente é um patrimônio natural essencial à vida. A degradação ambiental, provocada pelo desmatamento, poluição e exploração desordenada dos recursos naturais, compromete a biodiversidade e ameaça a sobrevivência de espécies, incluindo a humana. A preservação da natureza exige consciência individual e ações coletivas, como o reflorestamento, a reciclagem e o consumo sustentável. Políticas públicas, fiscalização e educação ambiental são fundamentais para reduzir impactos negativos e promover práticas sustentáveis. A responsabilidade de proteger o planeta é de todos, garantindo qualidade de vida, saúde e um futuro equilibrado para as próximas gerações.",
   "tecnologia": "A tecnologia transformou a sociedade contemporânea, influenciando educação, comunicação, saúde e economia. Ferramentas digitais facilitam o acesso à informação e melhoram a produtividade, mas também apresentam riscos, como dependência tecnológica e disseminação de fake news. É importante utilizar a tecnologia de maneira consciente, promovendo segurança, ética e responsabilidade digital. Investimentos em inovação e capacitação digital são essenciais para preparar indivíduos para um mercado de trabalho competitivo.",
