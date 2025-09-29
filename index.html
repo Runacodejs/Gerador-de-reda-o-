@@ -1,0 +1,28 @@
+<script type="module">
+    import redacoes from './redacoes.js';
+
+    function gerarRedacao() {
+      const tema = document.getElementById("tema").value.trim().toLowerCase();
+        if (!tema) { 
+            alert("Digite um tema primeiro!"); 
+                return; 
+                  }
+                    const texto = redacoes[tema];
+                      document.getElementById("saida").innerText = texto || "Redação não encontrada para este tema.";
+                      }
+
+                      function copiarRedacao() {
+                        const texto = document.getElementById("saida").innerText;
+                          navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
+                          }
+
+                          function apagarRedacao() {
+                            document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
+                              document.getElementById("tema").value = "";
+                              }
+
+                              // Expondo a função para os botões onclick
+                              window.gerarRedacao = gerarRedacao;
+                              window.copiarRedacao = copiarRedacao;
+                              window.apagarRedacao = apagarRedacao;
+                              </script>
