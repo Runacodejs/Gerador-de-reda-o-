@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Redação Turbo</title>
 <style>
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:20px; background-color:#121212; color:#f0f0f0; font-size:16px; line-height:1.5; }
+body { font-family: 'Segoe UI', sans-serif; margin:0; padding:20px; background:#121212; color:#f0f0f0; font-size:16px; line-height:1.5; }
 h1 { color:#1E90FF; text-align:center; margin-bottom:30px; }
 .container { max-width:800px; margin:auto; width:100%; }
-textarea { width:100%; height:140px; margin:10px 0; padding:12px; background-color:#1e1e1e; border:1px solid #333; border-radius:10px; color:#f0f0f0; font-size:16px; resize:vertical; box-sizing:border-box; }
-button { margin:5px 5px 5px 0; padding:14px 24px; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:16px; transition: all 0.2s ease; min-height:48px; }
-.gerar { background-color:#2e8b57; color:#fff; } .gerar:hover { background-color:#246f45; }
-.copiar { background-color:#4682b4; color:#fff; } .copiar:hover { background-color:#35638a; }
-.apagar { background-color:#b22222; color:#fff; } .apagar:hover { background-color:#8a1717; }
-#saida { margin-top:20px; padding:20px; background-color:#1e1e1e; border-radius:10px; min-height:220px; white-space:pre-line; border:1px solid #333; font-size:16px; word-wrap:break-word; overflow-wrap:break-word; }
+textarea { width:100%; height:140px; margin:10px 0; padding:12px; background:#1e1e1e; border:1px solid #333; border-radius:10px; color:#f0f0f0; font-size:16px; resize:vertical; box-sizing:border-box; }
+button { margin:5px 5px 5px 0; padding:14px 24px; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:16px; transition:all 0.2s ease; min-height:48px; }
+.gerar { background:#2e8b57; color:#fff; } .gerar:hover { background:#246f45; }
+.copiar { background:#4682b4; color:#fff; } .copiar:hover { background:#35638a; }
+.apagar { background:#b22222; color:#fff; } .apagar:hover { background:#8a1717; }
+#saida { margin-top:20px; padding:20px; background:#1e1e1e; border-radius:10px; min-height:220px; white-space:pre-line; border:1px solid #333; font-size:16px; word-wrap:break-word; overflow-wrap:break-word; }
 footer { margin-top:40px; text-align:center; color:#aaa; font-size:14px; }
 footer span { font-size:12px; display:block; margin-top:5px; }
 </style>
@@ -32,22 +32,31 @@ footer span { font-size:12px; display:block; margin-top:5px; }
 <div id="saida">Sua redação aparecerá aqui...</div>
 
 <footer>
-Desenvolvido por <strong style="color:#1E90FF;">kel_mod</strong> | Servidor: <strong>Runacode</strong>
+Desenvolvido por <strong style="color:#1E90FF;">kel_mod</strong>
 <span>© 2025 Todos os direitos reservados</span>
 </footer>
 </div>
 
-<script src="redacoes.js"></script>
 <script>
+// Banco de redações dentro do HTML
+var redacoes = {
+  "meio ambiente": "O meio ambiente é um patrimônio natural essencial à vida. A degradação ambiental, provocada pelo desmatamento, poluição e exploração desordenada dos recursos naturais, compromete a biodiversidade e ameaça a sobrevivência de espécies, incluindo a humana. A preservação da natureza exige consciência individual e ações coletivas, como o reflorestamento, a reciclagem e o consumo sustentável. Políticas públicas, fiscalização e educação ambiental são fundamentais para reduzir impactos negativos e promover práticas sustentáveis. A responsabilidade de proteger o planeta é de todos, garantindo qualidade de vida, saúde e um futuro equilibrado para as próximas gerações.",
+  "tecnologia": "A tecnologia transformou a sociedade contemporânea, influenciando educação, comunicação, saúde e economia. Ferramentas digitais facilitam o acesso à informação e melhoram a produtividade, mas também apresentam riscos, como dependência tecnológica e disseminação de fake news. É importante utilizar a tecnologia de maneira consciente, promovendo segurança, ética e responsabilidade digital. Investimentos em inovação e capacitação digital são essenciais para preparar indivíduos para um mercado de trabalho competitivo.",
+  "educacao": "A educação é fundamental para o desenvolvimento de uma sociedade justa e democrática. Garantir acesso à educação de qualidade promove igualdade de oportunidades e prepara cidadãos capazes de enfrentar desafios pessoais e profissionais. A formação escolar deve contemplar o conhecimento acadêmico, valores éticos e habilidades socioemocionais, contribuindo para a construção de uma sociedade consciente e participativa.",
+  "saude": "A saúde é um direito fundamental e base para a qualidade de vida. Políticas públicas eficientes, acesso a serviços de saúde e prevenção de doenças são essenciais para garantir o bem-estar da população. Hábitos saudáveis, como alimentação equilibrada, prática de exercícios e acompanhamento médico regular, contribuem para a prevenção de enfermidades e prolongamento da vida.",
+  "cidadania": "A cidadania envolve direitos e deveres que permitem a participação ativa do indivíduo na sociedade. Conhecer a legislação, respeitar normas e participar de decisões coletivas são atitudes fundamentais para fortalecer a democracia. O exercício da cidadania promove justiça social, inclusão e responsabilidade, garantindo que todos tenham voz e acesso a oportunidades.",
+  "sustentabilidade": "A sustentabilidade busca equilibrar desenvolvimento econômico, social e ambiental, garantindo que recursos naturais sejam preservados para as futuras gerações. Práticas sustentáveis incluem uso consciente da água, energia limpa, reciclagem e produção responsável. Empresas e indivíduos devem adotar políticas e hábitos que minimizem impactos ambientais e promovam um futuro equilibrado."
+};
+
 function gerarRedacao() {
-  const tema = document.getElementById("tema").value.trim().toLowerCase();
-  if (!tema) { alert("Digite um tema primeiro!"); return; }
-  const texto = redacoes[tema];
-  document.getElementById("saida").innerText = texto || "Redação não encontrada para este tema.";
+  var tema = document.getElementById("tema").value.trim().toLowerCase();
+  if(!tema) { alert("Digite um tema primeiro!"); return; }
+  var texto = redacoes[tema];
+  document.getElementById("saida").innerText = texto || "Redação não encontrada para este tema.\nTente: meio ambiente, tecnologia, educacao, saude, cidadania, sustentabilidade";
 }
 
 function copiarRedacao() {
-  const texto = document.getElementById("saida").innerText;
+  var texto = document.getElementById("saida").innerText;
   navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
 }
 
@@ -57,4 +66,4 @@ function apagarRedacao() {
 }
 </script>
 </body>
-</html>
+</html>p
