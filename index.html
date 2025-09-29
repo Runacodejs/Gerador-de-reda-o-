@@ -19,10 +19,7 @@ button { margin:5px 5px 5px 0; padding:14px 24px; border:none; border-radius:10p
 .loader span:nth-child(2){ animation-delay:0.2s; }
 .loader span:nth-child(3){ animation-delay:0.4s; }
 @keyframes jump { 0%,80%,100%{transform:translateY(0);} 40%{transform:translateY(-8px);} }
-
-/* Nova classe para os nomes azuis */
 .footer-nome { color:#1E90FF; font-weight:bold; }
-
 footer { margin-top:40px; text-align:center; color:#aaa; font-size:14px; }
 footer span { font-size:12px; display:block; margin-top:5px; }
 </style>
@@ -47,14 +44,21 @@ Desenvolvido por <span class="footer-nome">kel_mod</span> | Servidor: <span clas
 </div>
 
 <script>
-// Banco de redações
 var redacoes = {
-  "meio ambiente": "O meio ambiente é um patrimônio natural essencial à vida. A degradação ambiental, provocada pelo desmatamento, poluição e exploração desordenada dos recursos naturais, compromete a biodiversidade e ameaça a sobrevivência de espécies, incluindo a humana. A preservação da natureza exige consciência individual e ações coletivas, como o reflorestamento, a reciclagem e o consumo sustentável. Políticas públicas, fiscalização e educação ambiental são fundamentais para reduzir impactos negativos e promover práticas sustentáveis. A responsabilidade de proteger o planeta é de todos, garantindo qualidade de vida, saúde e um futuro equilibrado para as próximas gerações.",
-  "tecnologia": "A tecnologia transformou a sociedade contemporânea, influenciando educação, comunicação, saúde e economia. Ferramentas digitais facilitam o acesso à informação e melhoram a produtividade, mas também apresentam riscos, como dependência tecnológica e disseminação de fake news. É importante utilizar a tecnologia de maneira consciente, promovendo segurança, ética e responsabilidade digital. Investimentos em inovação e capacitação digital são essenciais para preparar indivíduos para um mercado de trabalho competitivo.",
-  "educacao": "A educação é fundamental para o desenvolvimento de uma sociedade justa e democrática. Garantir acesso à educação de qualidade promove igualdade de oportunidades e prepara cidadãos capazes de enfrentar desafios pessoais e profissionais. A formação escolar deve contemplar o conhecimento acadêmico, valores éticos e habilidades socioemocionais, contribuindo para a construção de uma sociedade consciente e participativa.",
-  "saude": "A saúde é um direito fundamental e base para a qualidade de vida. Políticas públicas eficientes, acesso a serviços de saúde e prevenção de doenças são essenciais para garantir o bem-estar da população. Hábitos saudáveis, como alimentação equilibrada, prática de exercícios e acompanhamento médico regular, contribuem para a prevenção de enfermidades e prolongamento da vida.",
-  "cidadania": "A cidadania envolve direitos e deveres que permitem a participação ativa do indivíduo na sociedade. Conhecer a legislação, respeitar normas e participar de decisões coletivas são atitudes fundamentais para fortalecer a democracia. O exercício da cidadania promove justiça social, inclusão e responsabilidade, garantindo que todos tenham voz e acesso a oportunidades.",
-  "sustentabilidade": "A sustentabilidade busca equilibrar desenvolvimento econômico, social e ambiental, garantindo que recursos naturais sejam preservados para as futuras gerações. Práticas sustentáveis incluem uso consciente da água, energia limpa, reciclagem e produção responsável. Empresas e indivíduos devem adotar políticas e hábitos que minimizem impactos ambientais e promovam um futuro equilibrado."
+  "meio ambiente": "O meio ambiente é um patrimônio natural essencial à vida humana e à sobrevivência de todas as espécies. A degradação ambiental causada pelo desmatamento, poluição e exploração indiscriminada de recursos naturais ameaça a biodiversidade e compromete a qualidade de vida. É necessário investir em políticas públicas, educação ambiental e práticas sustentáveis, como reciclagem, consumo consciente, reflorestamento e preservação de biomas. A conscientização individual e coletiva desempenha papel fundamental na proteção do planeta, garantindo um futuro equilibrado e saudável para as próximas gerações.",
+  "tecnologia": "A tecnologia transformou radicalmente a sociedade contemporânea, promovendo avanços em educação, comunicação, economia, saúde e ciência. Ferramentas digitais possibilitam acesso rápido à informação, aumentam a produtividade e conectam pessoas globalmente, porém também apresentam riscos como dependência tecnológica, invasão de privacidade e disseminação de fake news. O uso consciente da tecnologia, aliado à educação digital e à inovação responsável, é crucial para maximizar benefícios e minimizar impactos negativos.",
+  "educacao": "A educação constitui o alicerce para sociedades justas, democráticas e economicamente desenvolvidas. Garantir acesso à educação de qualidade significa oferecer infraestrutura adequada, professores capacitados, programas pedagógicos inovadores e desenvolvimento de habilidades socioemocionais. A educação deve incluir valores éticos, consciência crítica, cidadania e diversidade cultural, promovendo inclusão social e equidade de oportunidades.",
+  "saude": "A saúde é um direito fundamental e um dos pilares da qualidade de vida. Garantir acesso universal a serviços de saúde, prevenção de doenças, educação sobre hábitos saudáveis e políticas públicas eficazes é essencial. Alimentação equilibrada, prática de exercícios físicos, cuidado com a saúde mental e acompanhamento médico regular contribuem para prevenir enfermidades e prolongar a vida.",
+  "cidadania": "A cidadania consiste no exercício pleno de direitos e deveres que permitem a participação ativa do indivíduo na sociedade. Conhecimento das leis, respeito às normas, engajamento em decisões coletivas e defesa da justiça social são fundamentais.",
+  "sustentabilidade": "A sustentabilidade busca equilibrar desenvolvimento econômico, bem-estar social e preservação ambiental. É necessário adotar práticas que minimizem impactos negativos sobre recursos naturais, promovam economia circular, uso eficiente da água e energia, reciclagem e responsabilidade social corporativa.",
+  "guerra fria": "A Guerra Fria foi um período de intensa tensão entre Estados Unidos e União Soviética, marcado por disputas ideológicas, políticas e militares. Conflitos indiretos, corridas armamentistas e espaciais influenciaram a geopolítica global e a vida de milhões de pessoas. Diplomacia, negociações e tratados internacionais foram essenciais para prevenir catástrofes nucleares e manter a estabilidade mundial.",
+  "desigualdade social": "A desigualdade social afeta milhões de indivíduos em todo o mundo. Diferenças econômicas, educacionais e sociais criam barreiras à igualdade de oportunidades. Políticas públicas, educação inclusiva e acesso a serviços básicos são essenciais para reduzir disparidades e fortalecer a coesão social.",
+  "mudancas climaticas": "As mudanças climáticas são provocadas principalmente pelas ações humanas, como emissão de gases de efeito estufa e desmatamento. O aquecimento global altera padrões climáticos, aumenta eventos extremos e afeta biodiversidade e agricultura.",
+  "violencia urbana": "A violência urbana envolve fatores sociais, econômicos e culturais complexos. Desigualdade, desemprego, educação deficiente e ausência de políticas de segurança contribuem para altos índices de criminalidade.",
+  "saude mental": "A saúde mental é essencial para o bem-estar integral do indivíduo, influenciando comportamento, relações sociais e desempenho profissional. O aumento do estresse, ansiedade e depressão evidencia a necessidade de políticas públicas e apoio psicológico.",
+  "educacao inclusiva": "A educação inclusiva garante que todos os estudantes, independentemente de habilidades ou condições sociais, tenham acesso a ensino de qualidade. Adaptações metodológicas e materiais favorecem equidade e respeito à diversidade.",
+  "democracia": "A democracia assegura participação cidadã, direitos fundamentais e equilíbrio de poderes. Educação política, transparência e engajamento social são essenciais para evitar corrupção e fortalecer direitos.",
+  "corrupcao": "A corrupção compromete instituições, governação e economia. Combater a corrupção exige transparência, fiscalização, leis rigorosas e participação cidadã ativa."
 };
 
 function showLoader() {
@@ -65,11 +69,10 @@ function gerarRedacao() {
   const tema = document.getElementById("tema").value.trim().toLowerCase();
   if(!tema){ alert("Digite um tema primeiro!"); return; }
   showLoader();
-
   setTimeout(() => {
     const texto = redacoes[tema];
     document.getElementById("saida").innerText = texto || 
-      "Redação não encontrada para este tema.\nTente: meio ambiente, tecnologia, educacao, saude, cidadania, sustentabilidade";
+      "Redação não encontrada para este tema.\nTente: meio ambiente, tecnologia, educacao, saude, cidadania, sustentabilidade, guerra fria, desigualdade social, mudancas climaticas, violencia urbana, saude mental, educacao inclusiva, democracia, corrupcao";
   }, 1000);
 }
 
