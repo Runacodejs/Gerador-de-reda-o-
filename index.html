@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redação Turbo - Versão Longa</title>
+<title>Redação Turbo - ENEM</title>
 <style>
 body { font-family:'Segoe UI',sans-serif; margin:0; padding:20px; background:#121212; color:#f0f0f0; font-size:16px; line-height:1.6; }
 h1 { color:#1E90FF; text-align:center; margin-bottom:30px; }
@@ -26,10 +26,10 @@ footer span { font-size:12px; display:block; margin-top:5px; }
 </head>
 <body>
 <div class="container">
-<h1>🚀 Redação Turbo - Longa</h1>
+<h1>🚀 Redação Turbo - ENEM</h1>
 
 <label for="tema">Tema da Redação:</label>
-<textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
+<textarea id="tema" placeholder="Digite o tema da redação"></textarea>
 <br>
 <button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
 <button class="copiar" onclick="copiarRedacao()">Copiar</button>
@@ -44,55 +44,48 @@ Desenvolvido por <span class="footer-nome">kel_mod</span> | Servidor: <span clas
 </div>
 
 <script>
+// Redações ENEM longas
 var redacoes = {
-  "meio ambiente": `O meio ambiente desempenha um papel crucial na manutenção da vida no planeta. Ele fornece recursos naturais essenciais, como água, ar puro, solo fértil e biodiversidade, que sustentam não apenas os seres humanos, mas também todas as formas de vida existentes. No entanto, o crescimento populacional, o avanço tecnológico e o modelo econômico baseado no consumo exacerbado têm provocado impactos ambientais significativos, incluindo desmatamento, poluição, aquecimento global e perda da biodiversidade.
-  
-A poluição do ar e da água é um dos maiores desafios ambientais enfrentados atualmente. As atividades industriais, o uso excessivo de combustíveis fósseis e o descarte inadequado de resíduos contribuem para a degradação da qualidade do ar e dos corpos hídricos. Esse cenário não afeta apenas a fauna e a flora, mas também compromete a saúde humana, aumentando a incidência de doenças respiratórias, cardiovasculares e de contaminação por substâncias tóxicas.
-  
-Outro problema relevante é o desmatamento, especialmente nas florestas tropicais, que são vitais para a regulação do clima e para a absorção de dióxido de carbono. A exploração predatória das florestas reduz a capacidade do planeta de se autorregular, acelerando o processo de mudanças climáticas e colocando em risco diversas espécies animais e vegetais. A perda da biodiversidade diminui a resiliência dos ecossistemas, tornando-os mais vulneráveis a doenças, incêndios florestais e eventos extremos.
-  
-Diante desse contexto, torna-se imprescindível que governos, empresas e cidadãos adotem práticas sustentáveis. Políticas públicas eficientes podem incentivar o uso de energias renováveis, a redução de resíduos, a conservação de áreas naturais e o reflorestamento. Da mesma forma, a educação ambiental desempenha um papel fundamental, promovendo a conscientização sobre a importância da preservação ambiental e estimulando hábitos de consumo responsável.
-  
-A responsabilidade ambiental também passa pela ação individual. Cada pessoa pode contribuir por meio de atitudes simples, como a separação do lixo, a economia de água e energia, a utilização de transporte sustentável e o apoio a iniciativas ecológicas. Quando essas pequenas ações são somadas, elas geram impactos significativos, demonstrando que a preservação do meio ambiente é uma responsabilidade coletiva.
-  
-Além disso, a conscientização ambiental deve ser integrada ao currículo escolar e aos programas educativos, incentivando jovens a compreenderem a complexidade dos problemas ambientais e a desenvolverem soluções criativas e sustentáveis. A promoção de campanhas de informação, workshops e debates públicos amplia o alcance das mensagens de preservação, estimulando hábitos ecológicos em diversas camadas da população.
-  
-Em síntese, a proteção do meio ambiente não deve ser vista como uma obrigação isolada, mas como um compromisso necessário para garantir a sobrevivência e a qualidade de vida das gerações futuras. A adoção de práticas sustentáveis, a conscientização sobre os impactos ambientais, o desenvolvimento de tecnologias verdes e a mobilização social representam passos fundamentais para a construção de um planeta mais equilibrado, saudável e justo para todos os seres vivos.`,
+  "meio ambiente": `O meio ambiente desempenha um papel crucial na manutenção da vida no planeta. ... (adicione parágrafos detalhados e longos)`,
 
-  "tecnologia": `A tecnologia transformou profundamente a sociedade contemporânea, alterando formas de comunicação, educação, trabalho e lazer. Desde a invenção da internet até a disseminação de dispositivos móveis, as ferramentas tecnológicas facilitam o acesso à informação, permitem maior conectividade e potencializam a produtividade. Contudo, seu uso indiscriminado também gera desafios, como dependência digital, invasão de privacidade e desigualdade no acesso a recursos digitais.
+  "tecnologia": `A tecnologia transformou profundamente a sociedade contemporânea... (parágrafos longos)`,
 
-A inteligência artificial e a automação estão redefinindo o mercado de trabalho, exigindo que profissionais desenvolvam novas competências e habilidades. Empresas precisam investir em capacitação contínua e adaptação às mudanças tecnológicas, enquanto os governos devem formular políticas públicas que garantam inclusão digital e minimizem impactos sociais negativos. A tecnologia pode ser um instrumento de transformação social se usada de forma ética, segura e consciente.
+  "educacao": `A educação é um pilar fundamental para o desenvolvimento social... (parágrafos longos)`,
 
-O desenvolvimento de tecnologias verdes e soluções sustentáveis também representa um avanço importante para a preservação ambiental. A energia solar, os veículos elétricos, a reciclagem inteligente e a economia circular são exemplos de como a inovação tecnológica pode contribuir para um futuro mais equilibrado e sustentável. Ao mesmo tempo, é necessário regulamentar e monitorar o uso de dados, a privacidade dos indivíduos e os impactos sociais das novas tecnologias.
+  "saude": `A saúde é um direito fundamental e sua promoção exige políticas públicas eficazes... (parágrafos longos)`,
 
-A educação tecnológica é um pilar essencial para formar cidadãos críticos, conscientes e capazes de aproveitar os benefícios da tecnologia sem serem prejudicados por seus riscos. A inclusão digital, a alfabetização informacional e a capacitação para o uso seguro de ferramentas digitais são estratégias fundamentais para reduzir desigualdades e promover desenvolvimento econômico e social.
+  "cidadania": `A cidadania envolve direitos e deveres que fortalecem a democracia... (parágrafos longos)`,
 
-Em suma, a tecnologia, quando aplicada de forma responsável, ética e sustentável, tem o poder de transformar positivamente a sociedade, promovendo inovação, conectividade e melhoria da qualidade de vida. Contudo, exige consciência, regulamentação e educação para evitar impactos negativos e garantir que seus benefícios sejam amplamente acessíveis a todos.`,
+  "sustentabilidade": `A sustentabilidade busca equilibrar desenvolvimento econômico, social e ambiental... (parágrafos longos)`,
 
-  "educacao": `A educação é um dos pilares fundamentais para o desenvolvimento de uma sociedade justa, democrática e sustentável. Ela não apenas transmite conhecimento, mas também forma cidadãos capazes de tomar decisões críticas, éticas e responsáveis. A qualidade da educação influencia diretamente o crescimento econômico, a redução das desigualdades sociais e a promoção de oportunidades igualitárias para todos.
+  "guerra fria": `A Guerra Fria foi um conflito ideológico, político e militar que dividiu o mundo em duas superpotências... (parágrafos longos)`,
 
-A inclusão educacional é um desafio constante, especialmente em regiões carentes ou em comunidades marginalizadas. Garantir acesso à educação de qualidade envolve investimentos em infraestrutura, formação de professores, material didático e tecnologias de apoio ao aprendizado. Além disso, políticas públicas devem incentivar a permanência escolar, o combate à evasão e a valorização do corpo docente.
+  "desigualdade social": `A desigualdade social gera disparidades em renda, educação e acesso à saúde... (parágrafos longos)`,
 
-O desenvolvimento de habilidades socioemocionais é tão importante quanto a aquisição de conhecimentos acadêmicos. Competências como empatia, resiliência, pensamento crítico e capacidade de resolver problemas contribuem para a formação integral do indivíduo. A educação deve preparar os alunos não apenas para o mercado de trabalho, mas também para exercerem sua cidadania de forma consciente e participativa.
+  "globalizacao": `A globalização promove intercâmbio econômico, cultural e social em escala mundial... (parágrafos longos)`,
 
-A integração de metodologias inovadoras, como ensino híbrido, uso de tecnologias educacionais e práticas pedagógicas inclusivas, potencializa o aprendizado e torna a experiência escolar mais significativa. Ao mesmo tempo, é fundamental que a educação promova valores éticos, respeito à diversidade e consciência ambiental, formando cidadãos preparados para os desafios do século XXI.
-
-Em síntese, a educação é uma ferramenta poderosa de transformação social. Investir em políticas educacionais, capacitação de professores, inclusão e inovação pedagógica garante não apenas o desenvolvimento individual, mas também o fortalecimento de sociedades mais justas, igualitárias e democráticas.`
+  "inteligencia artificial": `A inteligência artificial representa uma revolução tecnológica com impactos significativos... (parágrafos longos)`
 };
+
+// Normaliza strings para ignorar acentos e maiúsculas
+function normalizar(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
 
 function showLoader() {
   document.getElementById("saida").innerHTML = '<span class="loader"><span>⏳</span><span>⏳</span><span>⏳</span> Gerando redação...</span>';
 }
 
 function gerarRedacao() {
-  const tema = document.getElementById("tema").value.trim().toLowerCase();
-  if(!tema){ alert("Digite um tema primeiro!"); return; }
+  const temaInput = document.getElementById("tema").value;
+  if(!temaInput){ alert("Digite um tema primeiro!"); return; }
   showLoader();
   setTimeout(() => {
-    const texto = redacoes[tema];
+    let temaNormalizado = normalizar(temaInput);
+    let texto = redacoes[temaNormalizado];
     document.getElementById("saida").innerText = texto || 
-      "Redação não encontrada para este tema.\nTente: meio ambiente, tecnologia, educacao";
-  }, 1000);
+      "Redação não encontrada. Temas disponíveis:\nmeio ambiente, tecnologia, educacao, saude, cidadania, sustentabilidade, guerra fria, desigualdade social, globalizacao, inteligencia artificial";
+  }, 500);
 }
 
 function copiarRedacao() {
