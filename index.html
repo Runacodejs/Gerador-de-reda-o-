@@ -3,33 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redação Turbo</title>
+<title>Redação Turbo - Versão Longa</title>
 <style>
-body { font-family:'Segoe UI',sans-serif; margin:0; padding:20px; background:#121212; color:#f0f0f0; font-size:16px; line-height:1.5; }
+body { font-family:'Segoe UI',sans-serif; margin:0; padding:20px; background:#121212; color:#f0f0f0; font-size:16px; line-height:1.6; }
 h1 { color:#1E90FF; text-align:center; margin-bottom:30px; }
-.container { max-width:800px; margin:auto; width:100%; }
+.container { max-width:900px; margin:auto; width:100%; }
 textarea { width:100%; height:140px; margin:10px 0; padding:12px; background:#1e1e1e; border:1px solid #333; border-radius:10px; color:#f0f0f0; font-size:16px; resize:vertical; box-sizing:border-box; }
 button { margin:5px 5px 5px 0; padding:14px 24px; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:16px; transition:all 0.2s ease; min-height:48px; }
 .gerar { background:#2e8b57; color:#fff; } .gerar:hover { background:#246f45; }
 .copiar { background:#4682b4; color:#fff; } .copiar:hover { background:#35638a; }
 .apagar { background:#b22222; color:#fff; } .apagar:hover { background:#8a1717; }
-#saida { margin-top:20px; padding:20px; background:#1e1e1e; border-radius:10px; min-height:220px; white-space:pre-line; border:1px solid #333; font-size:16px; position:relative; word-wrap:break-word; overflow-wrap:break-word; }
+#saida { margin-top:20px; padding:20px; background:#1e1e1e; border-radius:10px; min-height:400px; white-space:pre-line; border:1px solid #333; font-size:16px; word-wrap:break-word; overflow-wrap:break-word; overflow-y:auto; max-height:80vh;}
 .loader { display:inline-block; font-weight:bold; color:#1E90FF; }
 .loader span { display:inline-block; animation:jump 0.6s infinite; }
 .loader span:nth-child(2){ animation-delay:0.2s; }
 .loader span:nth-child(3){ animation-delay:0.4s; }
 @keyframes jump { 0%,80%,100%{transform:translateY(0);} 40%{transform:translateY(-8px);} }
-
-/* Nome azul */
 .footer-nome { color:#1E90FF; font-weight:bold; }
-
 footer { margin-top:40px; text-align:center; color:#aaa; font-size:14px; }
 footer span { font-size:12px; display:block; margin-top:5px; }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>🚀 Redação Turbo</h1>
+<h1>🚀 Redação Turbo - Longa</h1>
 
 <label for="tema">Tema da Redação:</label>
 <textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
@@ -47,7 +44,6 @@ Desenvolvido por <span class="footer-nome">kel_mod</span> | Servidor: <span clas
 </div>
 
 <script>
-// Banco de redações
 var redacoes = {
   "meio ambiente": `O meio ambiente desempenha um papel crucial na manutenção da vida no planeta. Ele fornece recursos naturais essenciais, como água, ar puro, solo fértil e biodiversidade, que sustentam não apenas os seres humanos, mas também todas as formas de vida existentes. No entanto, o crescimento populacional, o avanço tecnológico e o modelo econômico baseado no consumo exacerbado têm provocado impactos ambientais significativos, incluindo desmatamento, poluição, aquecimento global e perda da biodiversidade.
   
@@ -81,22 +77,33 @@ O desenvolvimento de habilidades socioemocionais é tão importante quanto a aqu
 
 A integração de metodologias inovadoras, como ensino híbrido, uso de tecnologias educacionais e práticas pedagógicas inclusivas, potencializa o aprendizado e torna a experiência escolar mais significativa. Ao mesmo tempo, é fundamental que a educação promova valores éticos, respeito à diversidade e consciência ambiental, formando cidadãos preparados para os desafios do século XXI.
 
-Em síntese, a educação é uma ferramenta poderosa de transformação social. Investir em políticas educacionais, capacitação de professores, inclusão e inovação pedagógica garante não apenas o desenvolvimento individual, mas também o fortalecimento de sociedades mais justas, igualitárias e democráticas.`,
+Em síntese, a educação é uma ferramenta poderosa de transformação social. Investir em políticas educacionais, capacitação de professores, inclusão e inovação pedagógica garante não apenas o desenvolvimento individual, mas também o fortalecimento de sociedades mais justas, igualitárias e democráticas.`
+};
 
-  "saude": `A saúde é um direito fundamental e base para a qualidade de vida. Políticas públicas eficientes, acesso a serviços de saúde e prevenção de doenças são essenciais para garantir o bem-estar da população. Hábitos saudáveis, como alimentação equilibrada, prática de exercícios físicos e acompanhamento médico regular, contribuem para a prevenção de enfermidades e prolongamento da vida.
+function showLoader() {
+  document.getElementById("saida").innerHTML = '<span class="loader"><span>⏳</span><span>⏳</span><span>⏳</span> Gerando redação...</span>';
+}
 
-Além disso, é fundamental investir em campanhas de conscientização sobre prevenção de doenças, vacinação, higiene e hábitos saudáveis. A promoção da saúde mental também deve ser prioridade, considerando o impacto do estresse, ansiedade e depressão na qualidade de vida.
+function gerarRedacao() {
+  const tema = document.getElementById("tema").value.trim().toLowerCase();
+  if(!tema){ alert("Digite um tema primeiro!"); return; }
+  showLoader();
+  setTimeout(() => {
+    const texto = redacoes[tema];
+    document.getElementById("saida").innerText = texto || 
+      "Redação não encontrada para este tema.\nTente: meio ambiente, tecnologia, educacao";
+  }, 1000);
+}
 
-A atuação conjunta de governo, sociedade e setor privado é necessária para reduzir desigualdades em saúde e ampliar o acesso a serviços de qualidade. A educação em saúde, o fortalecimento de sistemas de atenção primária e o incentivo a estilos de vida saudáveis são ferramentas estratégicas para o desenvolvimento sustentável e a melhoria da qualidade de vida de toda a população.`,
+function copiarRedacao() {
+  var texto = document.getElementById("saida").innerText;
+  navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
+}
 
-  "cidadania": `A cidadania envolve direitos e deveres que permitem a participação ativa do indivíduo na sociedade. Conhecer a legislação, respeitar normas e participar de decisões coletivas são atitudes fundamentais para fortalecer a democracia.
-
-O exercício da cidadania promove justiça social, inclusão e responsabilidade, garantindo que todos tenham voz e acesso a oportunidades. Além disso, a educação para a cidadania contribui para a formação de cidadãos conscientes, capazes de discernir e atuar em prol do bem comum.
-
-A cidadania também está relacionada à participação política, ao engajamento social e à promoção de valores éticos que fortalecem a coesão social. Assim, cada indivíduo deve compreender seu papel na sociedade e agir de forma responsável, respeitando os direitos de outros cidadãos e contribuindo para o desenvolvimento coletivo.`,
-
-  "sustentabilidade": `A sustentabilidade busca equilibrar desenvolvimento econômico, social e ambiental, garantindo que recursos naturais sejam preservados para as futuras gerações. Práticas sustentáveis incluem uso consciente da água, energia limpa, reciclagem e produção responsável. Empresas e indivíduos devem adotar políticas e hábitos que minimizem impactos ambientais e promovam um futuro equilibrado.
-
-O conceito de sustentabilidade não se limita à preservação ambiental; ele envolve também justiça social e desenvolvimento econômico. A aplicação de políticas sustentáveis em empresas, governos e comunidades garante a continuidade dos recursos naturais e promove qualidade de vida para todos.
-
-A conscientização e a educação ambiental são essenciais para a adoção de práticas sustentáveis. Incentivar hábitos ecológicos, consumir de forma responsável e valorizar iniciativas verdes contribui para a construção de sociedades mais equilibradas e conscientes de seu papel na preserv
+function apagarRedacao() {
+  document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
+  document.getElementById("tema").value = "";
+}
+</script>
+</body>
+</html>
