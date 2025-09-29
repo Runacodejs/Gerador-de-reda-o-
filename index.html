@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Redação Turbo</title>
 <style>
-/* Variáveis de cores para facilitar troca de tema */
 :root {
   --bg-color: #121212;
   --text-color: #f0f0f0;
@@ -17,7 +16,6 @@
   --btn-apagar: #b22222;
 }
 
-/* Tema claro */
 body.light-theme {
   --bg-color: #f0f0f0;
   --text-color: #121212;
@@ -45,19 +43,15 @@ body {
   border-bottom: 1px solid var(--border-color);
   padding: 10px 0;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .menu ul {
   list-style: none;
-  display: flex;
-  justify-content: center;
   margin: 0;
   padding: 0;
-  gap: 15px;
-  flex-wrap: wrap;
 }
 
-.menu ul li a,
 .menu ul li button {
   color: var(--text-color);
   text-decoration: none;
@@ -67,12 +61,11 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
-  background: none;
+  background-color: var(--btn-copiar);
 }
 
-.menu ul li a:hover,
 .menu ul li button:hover {
-  background-color: var(--btn-copiar);
+  filter: brightness(0.9);
 }
 
 /* Container */
@@ -116,7 +109,6 @@ button {
   touch-action: manipulation;
 }
 
-/* Botões com cores variáveis */
 .gerar { background-color: var(--btn-gerar); color: #fff; }
 .gerar:hover { filter: brightness(0.9); }
 .copiar { background-color: var(--btn-copiar); color: #fff; }
@@ -160,7 +152,6 @@ footer {
 }
 footer span { font-size: 12px; display: block; margin-top: 5px; }
 
-/* Responsividade */
 @media screen and (max-width: 768px) {
   body { padding: 15px; font-size: 14px; }
   h1 { font-size: 24px; margin-bottom: 20px; }
@@ -182,7 +173,6 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
   .loader { font-size: 14px; }
 }
 
-/* Melhorias touch */
 @media (hover: none) and (pointer: coarse) {
   button:hover { transform: none; }
   button:active { transform: scale(0.98); opacity: 0.8; }
@@ -192,10 +182,6 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
 <body>
 <nav class="menu">
   <ul>
-    <li><a href="#">Início</a></li>
-    <li><a href="#">Temas</a></li>
-    <li><a href="#">Sobre</a></li>
-    <li><a href="#">Contato</a></li>
     <li><button id="toggleTheme">🌗 Trocar Tema</button></li>
   </ul>
 </nav>
@@ -219,7 +205,6 @@ Desenvolvido por <strong style="color: #1E90FF;">kel_mod</strong> | Servidor: <s
 </div>
 
 <script>
-/* Loader */
 function showLoader() {
   const loader = document.createElement('span');
   loader.className = 'loader';
@@ -228,12 +213,10 @@ function showLoader() {
   document.getElementById('saida').appendChild(loader);
 }
 
-/* Funções botões */
 function gerarRedacao() {
   const tema = document.getElementById("tema").value;
   if (!tema) { alert("Digite um tema primeiro!"); return; }
   showLoader();
-  // Simulação de geração de redação
   setTimeout(() => {
     document.getElementById("saida").innerText = `Redação gerada sobre: ${tema}\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit.`;
   }, 1000);
@@ -249,7 +232,6 @@ function apagarRedacao() {
   document.getElementById("tema").value = "";
 }
 
-/* Troca de tema */
 document.getElementById("toggleTheme").addEventListener("click", () => {
   document.body.classList.toggle("light-theme");
   const btn = document.getElementById("toggleTheme");
