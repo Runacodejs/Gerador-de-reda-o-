@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redação Turbo - ENEM</title>
+<title>Redação Turbo - Versão Longa</title>
 <style>
-body { font-family:'Segoe UI',sans-serif; margin:0; padding:20px; background:#121212; color:#f0f0f0; font-size:16px; line-height:1.6; }
+body { font-family:'Segoe UI',sans-serif; margin:0; padding:20px; background:#121212; color:#f0f0f0; line-height:1.6; }
 h1 { color:#1E90FF; text-align:center; margin-bottom:30px; }
 .container { max-width:900px; margin:auto; width:100%; }
-textarea { width:100%; height:140px; margin:10px 0; padding:12px; background:#1e1e1e; border:1px solid #333; border-radius:10px; color:#f0f0f0; font-size:16px; resize:vertical; box-sizing:border-box; }
-button { margin:5px 5px 5px 0; padding:14px 24px; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:16px; transition:all 0.2s ease; min-height:48px; }
+textarea { width:100%; height:140px; margin:10px 0; padding:12px; background:#1e1e1e; border:1px solid #333; border-radius:10px; color:#f0f0f0; font-size:16px; resize:vertical; }
+button { margin:5px 5px 5px 0; padding:14px 24px; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:16px; }
 .gerar { background:#2e8b57; color:#fff; } .gerar:hover { background:#246f45; }
 .copiar { background:#4682b4; color:#fff; } .copiar:hover { background:#35638a; }
 .apagar { background:#b22222; color:#fff; } .apagar:hover { background:#8a1717; }
-#saida { margin-top:20px; padding:20px; background:#1e1e1e; border-radius:10px; min-height:400px; white-space:pre-line; border:1px solid #333; font-size:16px; word-wrap:break-word; overflow-wrap:break-word; overflow-y:auto; max-height:80vh;}
+#saida { margin-top:20px; padding:20px; background:#1e1e1e; border-radius:10px; min-height:400px; white-space:pre-line; border:1px solid #333; font-size:16px; overflow-y:auto; max-height:80vh; }
 .loader { display:inline-block; font-weight:bold; color:#1E90FF; }
 .loader span { display:inline-block; animation:jump 0.6s infinite; }
 .loader span:nth-child(2){ animation-delay:0.2s; }
@@ -26,10 +26,10 @@ footer span { font-size:12px; display:block; margin-top:5px; }
 </head>
 <body>
 <div class="container">
-<h1>🚀 Redação Turbo - ENEM</h1>
+<h1>🚀 Redação Turbo</h1>
 
 <label for="tema">Tema da Redação:</label>
-<textarea id="tema" placeholder="Digite o tema da redação"></textarea>
+<textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
 <br>
 <button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
 <button class="copiar" onclick="copiarRedacao()">Copiar</button>
@@ -44,48 +44,34 @@ Desenvolvido por <span class="footer-nome">kel_mod</span> | Servidor: <span clas
 </div>
 
 <script>
-// Redações ENEM longas
+// Banco de redações
 var redacoes = {
-  "meio ambiente": `O meio ambiente desempenha um papel crucial na manutenção da vida no planeta. ... (adicione parágrafos detalhados e longos)`,
+  "meio ambiente": `O meio ambiente desempenha um papel crucial na manutenção da vida no planeta. Ele fornece recursos naturais essenciais, como água, ar puro, solo fértil e biodiversidade... [adicione mais parágrafos longos aqui]`,
+  
+  "tecnologia": `A tecnologia transformou profundamente a sociedade contemporânea, alterando formas de comunicação, educação, trabalho e lazer... [adicione mais parágrafos longos aqui]`,
 
-  "tecnologia": `A tecnologia transformou profundamente a sociedade contemporânea... (parágrafos longos)`,
+  "educacao": `A educação é um dos pilares fundamentais para o desenvolvimento de uma sociedade justa, democrática e sustentável... [adicione mais parágrafos longos aqui]`,
 
-  "educacao": `A educação é um pilar fundamental para o desenvolvimento social... (parágrafos longos)`,
-
-  "saude": `A saúde é um direito fundamental e sua promoção exige políticas públicas eficazes... (parágrafos longos)`,
-
-  "cidadania": `A cidadania envolve direitos e deveres que fortalecem a democracia... (parágrafos longos)`,
-
-  "sustentabilidade": `A sustentabilidade busca equilibrar desenvolvimento econômico, social e ambiental... (parágrafos longos)`,
-
-  "guerra fria": `A Guerra Fria foi um conflito ideológico, político e militar que dividiu o mundo em duas superpotências... (parágrafos longos)`,
-
-  "desigualdade social": `A desigualdade social gera disparidades em renda, educação e acesso à saúde... (parágrafos longos)`,
-
-  "globalizacao": `A globalização promove intercâmbio econômico, cultural e social em escala mundial... (parágrafos longos)`,
-
-  "inteligencia artificial": `A inteligência artificial representa uma revolução tecnológica com impactos significativos... (parágrafos longos)`
+  "guerra fria": `A Guerra Fria foi um conflito ideológico, político e militar que dividiu o mundo em duas superpotências: Estados Unidos e União Soviética... [adicione mais parágrafos longos aqui]`
+  // Você pode adicionar mais temas aqui
 };
-
-// Normaliza strings para ignorar acentos e maiúsculas
-function normalizar(str) {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-}
 
 function showLoader() {
   document.getElementById("saida").innerHTML = '<span class="loader"><span>⏳</span><span>⏳</span><span>⏳</span> Gerando redação...</span>';
 }
 
 function gerarRedacao() {
-  const temaInput = document.getElementById("tema").value;
-  if(!temaInput){ alert("Digite um tema primeiro!"); return; }
+  const tema = document.getElementById("tema").value.trim().toLowerCase();
+  if(!tema){ alert("Digite um tema primeiro!"); return; }
+
   showLoader();
+
+  // Simula tempo de processamento
   setTimeout(() => {
-    let temaNormalizado = normalizar(temaInput);
-    let texto = redacoes[temaNormalizado];
+    const texto = redacoes[tema];
     document.getElementById("saida").innerText = texto || 
-      "Redação não encontrada. Temas disponíveis:\nmeio ambiente, tecnologia, educacao, saude, cidadania, sustentabilidade, guerra fria, desigualdade social, globalizacao, inteligencia artificial";
-  }, 500);
+      "Redação não encontrada para este tema.\nTente: meio ambiente, tecnologia, educacao, guerra fria";
+  }, 1500);
 }
 
 function copiarRedacao() {
