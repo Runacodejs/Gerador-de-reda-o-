@@ -19,7 +19,10 @@ button { margin:5px 5px 5px 0; padding:14px 24px; border:none; border-radius:10p
 .loader span:nth-child(2){ animation-delay:0.2s; }
 .loader span:nth-child(3){ animation-delay:0.4s; }
 @keyframes jump { 0%,80%,100%{transform:translateY(0);} 40%{transform:translateY(-8px);} }
+
+/* Nome azul */
 .footer-nome { color:#1E90FF; font-weight:bold; }
+
 footer { margin-top:40px; text-align:center; color:#aaa; font-size:14px; }
 footer span { font-size:12px; display:block; margin-top:5px; }
 </style>
@@ -44,47 +47,56 @@ Desenvolvido por <span class="footer-nome">kel_mod</span> | Servidor: <span clas
 </div>
 
 <script>
+// Banco de redações
 var redacoes = {
-  "meio ambiente": "O meio ambiente é um patrimônio natural essencial à vida humana e à sobrevivência de todas as espécies. A degradação ambiental causada pelo desmatamento, poluição e exploração indiscriminada de recursos naturais ameaça a biodiversidade e compromete a qualidade de vida. É necessário investir em políticas públicas, educação ambiental e práticas sustentáveis, como reciclagem, consumo consciente, reflorestamento e preservação de biomas. A conscientização individual e coletiva desempenha papel fundamental na proteção do planeta, garantindo um futuro equilibrado e saudável para as próximas gerações.",
-  "tecnologia": "A tecnologia transformou radicalmente a sociedade contemporânea, promovendo avanços em educação, comunicação, economia, saúde e ciência. Ferramentas digitais possibilitam acesso rápido à informação, aumentam a produtividade e conectam pessoas globalmente, porém também apresentam riscos como dependência tecnológica, invasão de privacidade e disseminação de fake news. O uso consciente da tecnologia, aliado à educação digital e à inovação responsável, é crucial para maximizar benefícios e minimizar impactos negativos.",
-  "educacao": "A educação constitui o alicerce para sociedades justas, democráticas e economicamente desenvolvidas. Garantir acesso à educação de qualidade significa oferecer infraestrutura adequada, professores capacitados, programas pedagógicos inovadores e desenvolvimento de habilidades socioemocionais. A educação deve incluir valores éticos, consciência crítica, cidadania e diversidade cultural, promovendo inclusão social e equidade de oportunidades.",
-  "saude": "A saúde é um direito fundamental e um dos pilares da qualidade de vida. Garantir acesso universal a serviços de saúde, prevenção de doenças, educação sobre hábitos saudáveis e políticas públicas eficazes é essencial. Alimentação equilibrada, prática de exercícios físicos, cuidado com a saúde mental e acompanhamento médico regular contribuem para prevenir enfermidades e prolongar a vida.",
-  "cidadania": "A cidadania consiste no exercício pleno de direitos e deveres que permitem a participação ativa do indivíduo na sociedade. Conhecimento das leis, respeito às normas, engajamento em decisões coletivas e defesa da justiça social são fundamentais.",
-  "sustentabilidade": "A sustentabilidade busca equilibrar desenvolvimento econômico, bem-estar social e preservação ambiental. É necessário adotar práticas que minimizem impactos negativos sobre recursos naturais, promovam economia circular, uso eficiente da água e energia, reciclagem e responsabilidade social corporativa.",
-  "guerra fria": "A Guerra Fria foi um período de intensa tensão entre Estados Unidos e União Soviética, marcado por disputas ideológicas, políticas e militares. Conflitos indiretos, corridas armamentistas e espaciais influenciaram a geopolítica global e a vida de milhões de pessoas. Diplomacia, negociações e tratados internacionais foram essenciais para prevenir catástrofes nucleares e manter a estabilidade mundial.",
-  "desigualdade social": "A desigualdade social afeta milhões de indivíduos em todo o mundo. Diferenças econômicas, educacionais e sociais criam barreiras à igualdade de oportunidades. Políticas públicas, educação inclusiva e acesso a serviços básicos são essenciais para reduzir disparidades e fortalecer a coesão social.",
-  "mudancas climaticas": "As mudanças climáticas são provocadas principalmente pelas ações humanas, como emissão de gases de efeito estufa e desmatamento. O aquecimento global altera padrões climáticos, aumenta eventos extremos e afeta biodiversidade e agricultura.",
-  "violencia urbana": "A violência urbana envolve fatores sociais, econômicos e culturais complexos. Desigualdade, desemprego, educação deficiente e ausência de políticas de segurança contribuem para altos índices de criminalidade.",
-  "saude mental": "A saúde mental é essencial para o bem-estar integral do indivíduo, influenciando comportamento, relações sociais e desempenho profissional. O aumento do estresse, ansiedade e depressão evidencia a necessidade de políticas públicas e apoio psicológico.",
-  "educacao inclusiva": "A educação inclusiva garante que todos os estudantes, independentemente de habilidades ou condições sociais, tenham acesso a ensino de qualidade. Adaptações metodológicas e materiais favorecem equidade e respeito à diversidade.",
-  "democracia": "A democracia assegura participação cidadã, direitos fundamentais e equilíbrio de poderes. Educação política, transparência e engajamento social são essenciais para evitar corrupção e fortalecer direitos.",
-  "corrupcao": "A corrupção compromete instituições, governação e economia. Combater a corrupção exige transparência, fiscalização, leis rigorosas e participação cidadã ativa."
-};
+  "meio ambiente": `O meio ambiente desempenha um papel crucial na manutenção da vida no planeta. Ele fornece recursos naturais essenciais, como água, ar puro, solo fértil e biodiversidade, que sustentam não apenas os seres humanos, mas também todas as formas de vida existentes. No entanto, o crescimento populacional, o avanço tecnológico e o modelo econômico baseado no consumo exacerbado têm provocado impactos ambientais significativos, incluindo desmatamento, poluição, aquecimento global e perda da biodiversidade.
+  
+A poluição do ar e da água é um dos maiores desafios ambientais enfrentados atualmente. As atividades industriais, o uso excessivo de combustíveis fósseis e o descarte inadequado de resíduos contribuem para a degradação da qualidade do ar e dos corpos hídricos. Esse cenário não afeta apenas a fauna e a flora, mas também compromete a saúde humana, aumentando a incidência de doenças respiratórias, cardiovasculares e de contaminação por substâncias tóxicas.
+  
+Outro problema relevante é o desmatamento, especialmente nas florestas tropicais, que são vitais para a regulação do clima e para a absorção de dióxido de carbono. A exploração predatória das florestas reduz a capacidade do planeta de se autorregular, acelerando o processo de mudanças climáticas e colocando em risco diversas espécies animais e vegetais. A perda da biodiversidade diminui a resiliência dos ecossistemas, tornando-os mais vulneráveis a doenças, incêndios florestais e eventos extremos.
+  
+Diante desse contexto, torna-se imprescindível que governos, empresas e cidadãos adotem práticas sustentáveis. Políticas públicas eficientes podem incentivar o uso de energias renováveis, a redução de resíduos, a conservação de áreas naturais e o reflorestamento. Da mesma forma, a educação ambiental desempenha um papel fundamental, promovendo a conscientização sobre a importância da preservação ambiental e estimulando hábitos de consumo responsável.
+  
+A responsabilidade ambiental também passa pela ação individual. Cada pessoa pode contribuir por meio de atitudes simples, como a separação do lixo, a economia de água e energia, a utilização de transporte sustentável e o apoio a iniciativas ecológicas. Quando essas pequenas ações são somadas, elas geram impactos significativos, demonstrando que a preservação do meio ambiente é uma responsabilidade coletiva.
+  
+Além disso, a conscientização ambiental deve ser integrada ao currículo escolar e aos programas educativos, incentivando jovens a compreenderem a complexidade dos problemas ambientais e a desenvolverem soluções criativas e sustentáveis. A promoção de campanhas de informação, workshops e debates públicos amplia o alcance das mensagens de preservação, estimulando hábitos ecológicos em diversas camadas da população.
+  
+Em síntese, a proteção do meio ambiente não deve ser vista como uma obrigação isolada, mas como um compromisso necessário para garantir a sobrevivência e a qualidade de vida das gerações futuras. A adoção de práticas sustentáveis, a conscientização sobre os impactos ambientais, o desenvolvimento de tecnologias verdes e a mobilização social representam passos fundamentais para a construção de um planeta mais equilibrado, saudável e justo para todos os seres vivos.`,
 
-function showLoader() {
-  document.getElementById("saida").innerHTML = '<span class="loader"><span>⏳</span><span>⏳</span><span>⏳</span> Gerando redação...</span>';
-}
+  "tecnologia": `A tecnologia transformou profundamente a sociedade contemporânea, alterando formas de comunicação, educação, trabalho e lazer. Desde a invenção da internet até a disseminação de dispositivos móveis, as ferramentas tecnológicas facilitam o acesso à informação, permitem maior conectividade e potencializam a produtividade. Contudo, seu uso indiscriminado também gera desafios, como dependência digital, invasão de privacidade e desigualdade no acesso a recursos digitais.
 
-function gerarRedacao() {
-  const tema = document.getElementById("tema").value.trim().toLowerCase();
-  if(!tema){ alert("Digite um tema primeiro!"); return; }
-  showLoader();
-  setTimeout(() => {
-    const texto = redacoes[tema];
-    document.getElementById("saida").innerText = texto || 
-      "Redação não encontrada para este tema.\nTente: meio ambiente, tecnologia, educacao, saude, cidadania, sustentabilidade, guerra fria, desigualdade social, mudancas climaticas, violencia urbana, saude mental, educacao inclusiva, democracia, corrupcao";
-  }, 1000);
-}
+A inteligência artificial e a automação estão redefinindo o mercado de trabalho, exigindo que profissionais desenvolvam novas competências e habilidades. Empresas precisam investir em capacitação contínua e adaptação às mudanças tecnológicas, enquanto os governos devem formular políticas públicas que garantam inclusão digital e minimizem impactos sociais negativos. A tecnologia pode ser um instrumento de transformação social se usada de forma ética, segura e consciente.
 
-function copiarRedacao() {
-  var texto = document.getElementById("saida").innerText;
-  navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
-}
+O desenvolvimento de tecnologias verdes e soluções sustentáveis também representa um avanço importante para a preservação ambiental. A energia solar, os veículos elétricos, a reciclagem inteligente e a economia circular são exemplos de como a inovação tecnológica pode contribuir para um futuro mais equilibrado e sustentável. Ao mesmo tempo, é necessário regulamentar e monitorar o uso de dados, a privacidade dos indivíduos e os impactos sociais das novas tecnologias.
 
-function apagarRedacao() {
-  document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
-  document.getElementById("tema").value = "";
-}
-</script>
-</body>
-</html>
+A educação tecnológica é um pilar essencial para formar cidadãos críticos, conscientes e capazes de aproveitar os benefícios da tecnologia sem serem prejudicados por seus riscos. A inclusão digital, a alfabetização informacional e a capacitação para o uso seguro de ferramentas digitais são estratégias fundamentais para reduzir desigualdades e promover desenvolvimento econômico e social.
+
+Em suma, a tecnologia, quando aplicada de forma responsável, ética e sustentável, tem o poder de transformar positivamente a sociedade, promovendo inovação, conectividade e melhoria da qualidade de vida. Contudo, exige consciência, regulamentação e educação para evitar impactos negativos e garantir que seus benefícios sejam amplamente acessíveis a todos.`,
+
+  "educacao": `A educação é um dos pilares fundamentais para o desenvolvimento de uma sociedade justa, democrática e sustentável. Ela não apenas transmite conhecimento, mas também forma cidadãos capazes de tomar decisões críticas, éticas e responsáveis. A qualidade da educação influencia diretamente o crescimento econômico, a redução das desigualdades sociais e a promoção de oportunidades igualitárias para todos.
+
+A inclusão educacional é um desafio constante, especialmente em regiões carentes ou em comunidades marginalizadas. Garantir acesso à educação de qualidade envolve investimentos em infraestrutura, formação de professores, material didático e tecnologias de apoio ao aprendizado. Além disso, políticas públicas devem incentivar a permanência escolar, o combate à evasão e a valorização do corpo docente.
+
+O desenvolvimento de habilidades socioemocionais é tão importante quanto a aquisição de conhecimentos acadêmicos. Competências como empatia, resiliência, pensamento crítico e capacidade de resolver problemas contribuem para a formação integral do indivíduo. A educação deve preparar os alunos não apenas para o mercado de trabalho, mas também para exercerem sua cidadania de forma consciente e participativa.
+
+A integração de metodologias inovadoras, como ensino híbrido, uso de tecnologias educacionais e práticas pedagógicas inclusivas, potencializa o aprendizado e torna a experiência escolar mais significativa. Ao mesmo tempo, é fundamental que a educação promova valores éticos, respeito à diversidade e consciência ambiental, formando cidadãos preparados para os desafios do século XXI.
+
+Em síntese, a educação é uma ferramenta poderosa de transformação social. Investir em políticas educacionais, capacitação de professores, inclusão e inovação pedagógica garante não apenas o desenvolvimento individual, mas também o fortalecimento de sociedades mais justas, igualitárias e democráticas.`,
+
+  "saude": `A saúde é um direito fundamental e base para a qualidade de vida. Políticas públicas eficientes, acesso a serviços de saúde e prevenção de doenças são essenciais para garantir o bem-estar da população. Hábitos saudáveis, como alimentação equilibrada, prática de exercícios físicos e acompanhamento médico regular, contribuem para a prevenção de enfermidades e prolongamento da vida.
+
+Além disso, é fundamental investir em campanhas de conscientização sobre prevenção de doenças, vacinação, higiene e hábitos saudáveis. A promoção da saúde mental também deve ser prioridade, considerando o impacto do estresse, ansiedade e depressão na qualidade de vida.
+
+A atuação conjunta de governo, sociedade e setor privado é necessária para reduzir desigualdades em saúde e ampliar o acesso a serviços de qualidade. A educação em saúde, o fortalecimento de sistemas de atenção primária e o incentivo a estilos de vida saudáveis são ferramentas estratégicas para o desenvolvimento sustentável e a melhoria da qualidade de vida de toda a população.`,
+
+  "cidadania": `A cidadania envolve direitos e deveres que permitem a participação ativa do indivíduo na sociedade. Conhecer a legislação, respeitar normas e participar de decisões coletivas são atitudes fundamentais para fortalecer a democracia.
+
+O exercício da cidadania promove justiça social, inclusão e responsabilidade, garantindo que todos tenham voz e acesso a oportunidades. Além disso, a educação para a cidadania contribui para a formação de cidadãos conscientes, capazes de discernir e atuar em prol do bem comum.
+
+A cidadania também está relacionada à participação política, ao engajamento social e à promoção de valores éticos que fortalecem a coesão social. Assim, cada indivíduo deve compreender seu papel na sociedade e agir de forma responsável, respeitando os direitos de outros cidadãos e contribuindo para o desenvolvimento coletivo.`,
+
+  "sustentabilidade": `A sustentabilidade busca equilibrar desenvolvimento econômico, social e ambiental, garantindo que recursos naturais sejam preservados para as futuras gerações. Práticas sustentáveis incluem uso consciente da água, energia limpa, reciclagem e produção responsável. Empresas e indivíduos devem adotar políticas e hábitos que minimizem impactos ambientais e promovam um futuro equilibrado.
+
+O conceito de sustentabilidade não se limita à preservação ambiental; ele envolve também justiça social e desenvolvimento econômico. A aplicação de políticas sustentáveis em empresas, governos e comunidades garante a continuidade dos recursos naturais e promove qualidade de vida para todos.
+
+A conscientização e a educação ambiental são essenciais para a adoção de práticas sustentáveis. Incentivar hábitos ecológicos, consumir de forma responsável e valorizar iniciativas verdes contribui para a construção de sociedades mais equilibradas e conscientes de seu papel na preserv
