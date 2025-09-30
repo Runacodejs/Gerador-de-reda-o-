@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
@@ -15,7 +14,8 @@ app.post('/api/generate', async (req, res) => {
     if (!prompt) {
       return res.status(400).json({ error: 'O prompt é obrigatório.' });
     }
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    // Corrected model name
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
@@ -31,7 +31,7 @@ app.get('/api', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(\`Server listening on port ${port}\`);
 });
 
 module.exports = app;
