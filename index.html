@@ -3,131 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redação Turbo</title>
+<title>Em Manutenção</title>
 <style>
-body { font-family:'Segoe UI',sans-serif; margin:0; padding:20px; background:#121212; color:#f0f0f0; line-height:1.6; }
-h1 { color:#1E90FF; text-align:center; margin-bottom:30px; }
-.container { max-width:900px; margin:auto; width:100%; }
-textarea { width:100%; height:120px; margin:10px 0; padding:12px; background:#1e1e1e; border:1px solid #333; border-radius:10px; color:#f0f0f0; font-size:16px; resize:vertical; }
-button { margin:5px 5px 5px 0; padding:12px 22px; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:16px; }
-.gerar { background:#2e8b57; color:#fff; } .gerar:hover { background:#246f45; }
-.copiar { background:#4682b4; color:#fff; } .copiar:hover { background:#35638a; }
-.apagar { background:#b22222; color:#fff; } .apagar:hover { background:#8a1717; }
-#saida { margin-top:20px; padding:20px; background:#1e1e1e; border-radius:10px; min-height:200px; white-space:pre-line; border:1px solid #333; font-size:16px; overflow-y:auto; max-height:70vh; }
-.loader { display:inline-block; font-weight:bold; color:#1E90FF; }
-.loader span { display:inline-block; animation:jump 0.6s infinite; }
-.loader span:nth-child(2){ animation-delay:0.2s; }
-.loader span:nth-child(3){ animation-delay:0.4s; }
-@keyframes jump { 0%,80%,100%{transform:translateY(0);} 40%{transform:translateY(-8px);} }
-footer { margin-top:40px; text-align:center; color:#aaa; font-size:14px; }
+  :root {
+    --background-color: #121212;
+    --text-color: #ffffff;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+
+  body {
+    height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 3rem;
+    color: #28a745;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(110vh); }
+  }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 0.8; }
+    25%, 75% { opacity: 0.2; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-<h1>🚀 Redação Turbo</h1>
-
-<label for="tema">Tema da Redação:</label>
-<textarea id="tema" placeholder="Digite um dos temas: meio ambiente, tecnologia, educacao, guerra fria..."></textarea>
-<br>
-<button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
-<button class="copiar" onclick="copiarRedacao()">Copiar</button>
-<button class="apagar" onclick="apagarRedacao()">Apagar</button>
-
-<div id="saida">Sua redação aparecerá aqui...</div>
-
-<footer>
-Desenvolvido por <b>kel_mod</b> | Servidor: Runacode  
-</footer>
-</div>
+<h1>Em Manutenção</h1>
 
 <script>
-// 🔹 Banco de redações
-const redacoes = {
-  "meio ambiente": `O meio ambiente desempenha um papel crucial na manutenção da vida no planeta. Ele fornece recursos naturais essenciais, como água, ar puro, solo fértil e biodiversidade, que sustentam não apenas os seres humanos, mas também todas as formas de vida existentes. No entanto, o crescimento populacional, o avanço tecnológico e o modelo econômico baseado no consumo exacerbado têm provocado impactos ambientais significativos, incluindo desmatamento, poluição, aquecimento global e perda da biodiversidade.
+const colors = ['#28a745', '#007bff', '#ff0000', '#ffff00', '#ff69b4', '#00ffff'];
+const particleCount = 80;
 
-A poluição do ar e da água é um dos maiores desafios ambientais enfrentados atualmente. As atividades industriais, o uso excessivo de combustíveis fósseis e o descarte inadequado de resíduos contribuem para a degradação da qualidade do ar e dos corpos hídricos. Esse cenário não afeta apenas a fauna e a flora, mas também compromete a saúde humana, aumentando a incidência de doenças respiratórias, cardiovasculares e de contaminação por substâncias tóxicas.
+for (let i = 0; i < particleCount; i++) {
+  const particle = document.createElement('div');
+  particle.classList.add('particle');
 
-Outro problema relevante é o desmatamento, especialmente nas florestas tropicais, que são vitais para a regulação do clima e para a absorção de dióxido de carbono. A exploração predatória das florestas reduz a capacidade do planeta de se autorregular, acelerando o processo de mudanças climáticas e colocando em risco diversas espécies animais e vegetais. A perda da biodiversidade, por sua vez, diminui a resiliência dos ecossistemas, tornando-os mais vulneráveis a doenças e eventos extremos.
+  const size = 5 + Math.random() * 10;
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
 
-Diante desse contexto, torna-se imprescindível que governos, empresas e cidadãos adotem práticas sustentáveis. Políticas públicas eficientes podem incentivar o uso de energias renováveis, a redução de resíduos, a conservação de áreas naturais e o reflorestamento. Da mesma forma, a educação ambiental desempenha um papel fundamental, promovendo a conscientização sobre a importância da preservação ambiental e estimulando hábitos de consumo responsável.
+  particle.style.top = '0px';
+  particle.style.left = Math.random() * 100 + 'vw';
 
-A responsabilidade ambiental também passa pela ação individual. Cada pessoa pode contribuir por meio de atitudes simples, como a separação do lixo, a economia de água e energia, a utilização de transporte sustentável e o apoio a iniciativas ecológicas. Quando essas pequenas ações são somadas, elas geram impactos significativos, demonstrando que a preservação do meio ambiente é uma responsabilidade coletiva.
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  particle.style.backgroundColor = color;
 
-Em síntese, a proteção do meio ambiente não deve ser vista como uma obrigação isolada, mas como um compromisso necessário para garantir a sobrevivência e a qualidade de vida das gerações futuras. A adoção de práticas sustentáveis e a conscientização sobre os impactos ambientais representam passos fundamentais para a construção de um planeta mais equilibrado, saudável e justo para todos os seres vivos.`,
+  const duration = 3 + Math.random() * 5;
+  particle.style.animationDuration = duration + 's';
+  particle.style.animationDelay = Math.random() * 5 + 's';
 
-  "tecnologia": `A tecnologia é, sem dúvida, um dos pilares centrais da sociedade moderna. Desde a Revolução Industrial até a atual Era Digital, o avanço tecnológico tem moldado a forma como as pessoas vivem, trabalham e se relacionam. Hoje, a presença da tecnologia está em praticamente todos os aspectos da vida cotidiana: na comunicação, na saúde, na educação, no transporte e até mesmo na forma como consumimos informações.
-
-Um dos maiores impactos da tecnologia está na comunicação. A popularização da internet e dos dispositivos móveis encurtou distâncias e possibilitou a troca instantânea de informações em escala global. Plataformas de redes sociais e aplicativos de mensagens transformaram a maneira de interagir, permitindo conexões rápidas e acessíveis. Contudo, esse mesmo fenômeno trouxe desafios, como a propagação de notícias falsas e a exposição excessiva da vida privada.
-
-Na área da saúde, a tecnologia tem sido fundamental para salvar vidas e melhorar a qualidade dos tratamentos. Equipamentos modernos, técnicas de diagnóstico por imagem, telemedicina e pesquisas avançadas em biotecnologia são exemplos de como a inovação contribui para combater doenças e ampliar a expectativa de vida. Ao mesmo tempo, levanta-se a questão da desigualdade no acesso a esses recursos, já que nem todos os países ou populações conseguem usufruir desses benefícios de forma equitativa.
-
-Outro campo profundamente afetado é o mercado de trabalho. A automação e a inteligência artificial estão substituindo tarefas repetitivas, ao mesmo tempo em que criam novas oportunidades de emprego em áreas inovadoras. Porém, essa transição também traz insegurança para trabalhadores que precisam se adaptar rapidamente, sob pena de ficarem excluídos do mundo laboral. Dessa forma, a educação e a capacitação contínua se tornam ferramentas indispensáveis para acompanhar as mudanças.
-
-A tecnologia ainda desempenha papel decisivo na preservação ambiental. Sistemas de energia renovável, veículos elétricos e projetos de cidades inteligentes representam avanços que podem ajudar na luta contra as mudanças climáticas. Entretanto, o próprio desenvolvimento tecnológico também gera impactos ambientais, como a produção de lixo eletrônico e o consumo elevado de recursos naturais, exigindo políticas responsáveis de descarte e reciclagem.
-
-Portanto, a tecnologia deve ser entendida como uma ferramenta que, dependendo de seu uso, pode trazer benefícios ou agravar problemas sociais. Cabe à sociedade, em conjunto com governos e empresas, direcionar seu desenvolvimento de maneira ética e sustentável. Assim, será possível garantir que o avanço tecnológico continue sendo um aliado do progresso humano e não um fator de exclusão ou degradação.
-
-Em síntese, a tecnologia é um dos principais motores do mundo contemporâneo. Seus impactos positivos são inegáveis, mas os desafios também são significativos. O equilíbrio entre inovação, ética e responsabilidade será a chave para construir um futuro mais justo, inclusivo e sustentável.`,
-
-  "educacao": `A educação é um dos pilares fundamentais para a construção de uma sociedade justa, democrática e desenvolvida. Mais do que transmitir conhecimento, ela é responsável por formar cidadãos críticos, conscientes de seus direitos e deveres, capazes de transformar a realidade ao seu redor. No entanto, apesar de sua importância inquestionável, o acesso a uma educação de qualidade ainda é um desafio em muitos contextos.
-
-No Brasil, por exemplo, a desigualdade social reflete-se diretamente na área educacional. Enquanto algumas regiões contam com escolas bem estruturadas e acesso a recursos tecnológicos, outras ainda enfrentam carências básicas, como falta de professores qualificados, infraestrutura precária e material didático insuficiente. Essa disparidade compromete as oportunidades de milhões de jovens, perpetuando o ciclo de pobreza e exclusão social.
-
-Além disso, a educação vai além do espaço escolar. Ela deve estar presente também no ambiente familiar e comunitário, fortalecendo valores como respeito, solidariedade e cidadania. A ausência desse processo integral de formação pode contribuir para problemas sociais, como a violência e a intolerância, que fragilizam o tecido social.
-
-Outro ponto relevante é a relação entre educação e mercado de trabalho. Em um mundo cada vez mais competitivo e tecnológico, a qualificação profissional é essencial para a inserção social e econômica. Nesse sentido, políticas públicas voltadas para a ampliação do ensino técnico e superior, bem como programas de capacitação contínua, tornam-se indispensáveis para acompanhar as mudanças do século XXI.
-
-Por outro lado, é preciso destacar também o papel transformador da educação para a construção de uma consciência crítica. Uma sociedade bem instruída é capaz de participar ativamente da vida política, cobrar seus representantes e lutar por direitos. Assim, a educação não deve ser vista apenas como um meio de ascensão individual, mas como um instrumento coletivo de transformação social.
-
-Portanto, é urgente que governos, instituições e famílias unam esforços para fortalecer o sistema educacional, garantindo acesso igualitário e de qualidade a todos. Investir em professores, infraestrutura, inclusão digital e políticas de permanência escolar é investir no futuro do país.
-
-Em síntese, a educação é a chave para superar desigualdades, promover a cidadania e construir uma sociedade mais justa e democrática. Ao ser valorizada e priorizada, ela se torna a base sólida sobre a qual se ergue o desenvolvimento humano e social.`,
-
-  "guerra fria": `A Guerra Fria foi um dos períodos mais marcantes da história contemporânea, caracterizando-se pela disputa ideológica, política, militar e econômica entre os Estados Unidos, representante do capitalismo, e a União Soviética, defensora do socialismo. Estendendo-se aproximadamente de 1947 até 1991, esse conflito não se materializou em uma guerra direta entre as potências, mas em uma série de tensões globais que remodelaram o cenário internacional.
-
-O termo “guerra fria” surgiu justamente para designar um embate sem confronto militar direto entre as superpotências, mas permeado por disputas indiretas, espionagem, corrida armamentista e espacial, além de propaganda ideológica. A bipolarização do mundo nesse período influenciou decisões políticas de diversos países, que eram pressionados a alinhar-se a um dos blocos.
-
-Entre os principais episódios da Guerra Fria, destacam-se a criação da Organização do Tratado do Atlântico Norte (OTAN) e do Pacto de Varsóvia, a Guerra da Coreia, a Crise dos Mísseis em Cuba, a Guerra do Vietnã e a corrida espacial que culminou na chegada do homem à Lua em 1969. Esses acontecimentos demonstram como a rivalidade entre EUA e URSS afetava diretamente diferentes regiões do globo.
-
-Além dos conflitos militares indiretos, a Guerra Fria gerou impactos profundos na vida cotidiana. A constante ameaça de uma guerra nuclear causava medo generalizado, enquanto a propaganda política moldava opiniões públicas. A espionagem, por meio de agências como a CIA e a KGB, reforçava a sensação de desconfiança e insegurança internacional.
-
-Com o enfraquecimento da União Soviética na década de 1980, marcado por problemas econômicos internos e pela política de abertura (Glasnost) e reestruturação (Perestroika) conduzidas por Mikhail Gorbachev, o socialismo soviético perdeu força, culminando na queda do Muro de Berlim em 1989 e no colapso da URSS em 1991. Esse desfecho simbolizou a vitória do bloco capitalista e inaugurou um mundo unipolar, liderado pelos Estados Unidos.
-
-Em síntese, a Guerra Fria não foi apenas uma disputa entre duas nações, mas um processo histórico que moldou a política, a economia e as relações internacionais do século XX. Seus efeitos se estendem até hoje, uma vez que muitas tensões geopolíticas atuais têm raízes nesse período. O estudo desse episódio é essencial para compreender a dinâmica mundial contemporânea e os desafios das relações internacionais.`
-};
-
-// 🔹 Loader
-function showLoader() {
-  document.getElementById("saida").innerHTML =
-    '<span class="loader"><span>⏳</span><span>⏳</span><span>⏳</span> Gerando redação...</span>';
-}
-
-// 🔹 Gera a redação
-function gerarRedacao() {
-  const tema = document.getElementById("tema").value.trim().toLowerCase();
-  if (!tema) { alert("Digite um tema primeiro!"); return; }
-
-  showLoader();
-
-  setTimeout(() => {
-    const texto = redacoes[tema];
-    document.getElementById("saida").innerText = texto || 
-      "⚠️ Redação não encontrada.\n\nTemas disponíveis:\n- meio ambiente\n- tecnologia\n- educacao\n- guerra fria";
-  }, 1500);
-}
-
-// 🔹 Copiar
-function copiarRedacao() {
-  const texto = document.getElementById("saida").innerText;
-  if (texto && texto !== "Sua redação aparecerá aqui...") {
-    navigator.clipboard.writeText(texto).then(() => alert("✅ Redação copiada!"));
+  if (color === '#28a745') {
+    particle.style.animationName = 'fall, blink';
+    particle.style.animationDuration = `${duration}s, ${0.5 + Math.random()}s`;
+    particle.style.animationIterationCount = 'infinite';
   }
-}
 
-// 🔹 Apagar
-function apagarRedacao() {
-  document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
-  document.getElementById("tema").value = "";
+  document.body.appendChild(particle);
 }
 </script>
 </body>
