@@ -177,13 +177,13 @@ async function gerarRedacao() {
   showLoader();
 
   try {
-    const res = await fetch("/api/redacao", {
+    const res = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tema })
+      body: JSON.stringify({ prompt: tema })
     });
     const data = await res.json();
-    document.getElementById("saida").innerText = data.redacao || "Erro ao gerar redação.";
+    document.getElementById("saida").innerText = data.generatedText || "Erro ao gerar redação.";
   } catch {
     document.getElementById("saida").innerText = "Erro ao gerar redação.";
   } finally {
