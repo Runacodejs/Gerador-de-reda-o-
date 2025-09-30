@@ -183,9 +183,13 @@ async function gerarRedacao() {
       body: JSON.stringify({ prompt: tema })
     });
     const data = await res.json();
-    document.getElementById("saida").innerText = data.generatedText || "Erro ao gerar redação.";
+    if (res.ok) {
+      document.getElementById("saida").innerText = data.generatedText || "Erro ao gerar redação.";
+    } else {
+      document.getElementById("saida").innerText = data.error || "Ocorreu um erro desconhecido.";
+    }
   } catch {
-    document.getElementById("saida").innerText = "Erro ao gerar redação.";
+    document.getElementById("saida").innerText = "Erro de comunicação com o servidor.";
   } finally {
     btn.disabled = false;
   }
