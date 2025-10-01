@@ -13,6 +13,7 @@
   --verde: #2e8b57;
   --azul-claro: #4682b4;
   --vermelho: #b22222;
+  --laranja: #ff8c00;
 }
 
 body {
@@ -40,8 +41,6 @@ h1 {
 
 textarea {
   width: 100%;
-  height: 140px;
-  margin: 10px 0;
   padding: 12px;
   background-color: var(--fundo-card);
   border: 1px solid #333;
@@ -51,6 +50,18 @@ textarea {
   resize: vertical;
   box-sizing: border-box;
   -webkit-appearance: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#tema { height: 140px; margin: 10px 0; }
+
+#saida {
+  min-height: 220px;
+  white-space: pre-line;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin-top: 20px;
+  position: relative;
 }
 
 button {
@@ -67,41 +78,32 @@ button {
 
 button.gerar { background-color: var(--verde); color: #fff; }
 button.gerar:hover { background-color: #246f45; }
+button.humanizar { background-color: var(--laranja); color: #fff; }
+button.humanizar:hover { background-color: #cc7000; }
 button.copiar { background-color: var(--azul-claro); color: #fff; }
 button.copiar:hover { background-color: #35638a; }
 button.apagar { background-color: var(--vermelho); color: #fff; }
 button.apagar:hover { background-color: #8a1717; }
 
-#saida {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: var(--fundo-card);
-  border-radius: 12px;
-  min-height: 220px;
-  white-space: pre-line;
-  border: 1px solid #333;
-  font-size: 16px;
-  position: relative;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
 
-#saida .loader {
+.loader-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  flex-direction: column;
+  gap: 10px;
   font-size: 18px;
   color: var(--texto);
+  min-height: 220px;
 }
 
-#saida .loader span {
+.loader span {
   display: inline-block;
   animation: jump 0.6s infinite;
 }
 
-#saida .loader span:nth-child(2) { animation-delay: 0.2s; }
-#saida .loader span:nth-child(3) { animation-delay: 0.4s; }
+.loader span:nth-child(2) { animation-delay: 0.2s; }
+.loader span:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes jump {
   0%, 80%, 100% { transform: translateY(0); }
@@ -120,8 +122,8 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
   body { padding: 15px; font-size: 14px; }
   h1 { font-size: 28px; margin-bottom: 20px; }
   textarea { height: 120px; padding: 12px; font-size: 15px; border-radius: 10px; }
+  #saida { min-height: 180px; font-size: 14px; border-radius: 10px; }
   button { width: 100%; margin: 8px 0; padding: 16px 20px; font-size: 16px; border-radius: 10px; }
-  #saida { padding: 15px; min-height: 180px; font-size: 14px; border-radius: 10px; }
   footer { margin-top: 30px; font-size: 12px; }
 }
 
@@ -129,8 +131,8 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
   body { padding: 10px; }
   h1 { font-size: 24px; margin-bottom: 15px; }
   textarea { height: 100px; font-size: 14px; }
-  button { padding: 14px 16px; font-size: 15px; }
   #saida { padding: 12px; min-height: 160px; font-size: 14px; margin-top: 15px; }
+  button { padding: 14px 16px; font-size: 15px; }
   footer { font-size: 11px; margin-top: 25px; }
 }
 
@@ -148,25 +150,27 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
   <textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
   <br>
   <button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
+  <button class="humanizar" onclick="humanizarRedacao()">Humanizar</button>
   <button class="copiar" onclick="copiarRedacao()">Copiar</button>
   <button class="apagar" onclick="apagarRedacao()">Apagar</button>
 
-  <div id="saida" aria-live="polite">Sua redação aparecerá aqui...</div>
+  <textarea id="saida" placeholder="Sua redação aparecerá aqui..."></textarea>
 
   <footer>
-    Desenvolvido por <strong style="color: var(--azul);">kel_mod</strong> | Servidor: <strong>Runacode</strong>
+    Desenvolvido por <strong style="color: var(--azul);">kel_mod</strong> | Servidor: <strong style="color: var(--azul);">Runacode</strong>
     <span>© 2025 Todos os direitos reservados</span>
   </footer>
 </div>
 
 <script>
-function showLoader() {
-  const loader = document.createElement('span');
-  loader.className = 'loader';
-  loader.innerHTML = '<span>⏳</span><span>⏳</span><span>⏳</span> Gerando redação...';
-  document.getElementById('saida').innerHTML = '';
-  document.getElementById('saida').appendChild(loader);
+const saidaEl = document.getElementById('saida');
+
+function showLoader(message) {
+    saidaEl.value = ''; // Limpa a área de texto
+    // Adiciona um placeholder temporário para o loader
+    saidaEl.placeholder = `${message}...`;
 }
+
 
 async function gerarRedacao() {
   const tema = document.getElementById("tema").value;
@@ -174,34 +178,67 @@ async function gerarRedacao() {
 
   const btn = document.querySelector('.gerar');
   btn.disabled = true;
-  showLoader();
+  showLoader("⏳ Gerando redação");
 
   try {
     const res = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: tema })
+      body: JSON.stringify({ prompt: `Escreva uma redação sobre o tema: "${tema}"` })
     });
     const data = await res.json();
+    saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
     if (res.ok) {
-      document.getElementById("saida").innerText = data.generatedText || "Erro ao gerar redação.";
+      saidaEl.value = data.generatedText || "Erro ao gerar redação.";
     } else {
-      document.getElementById("saida").innerText = data.error || "Ocorreu um erro desconhecido.";
+      saidaEl.value = data.error || "Ocorreu um erro desconhecido.";
     }
   } catch {
-    document.getElementById("saida").innerText = "Erro de comunicação com o servidor.";
+    saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
+    saidaEl.value = "Erro de comunicação com o servidor.";
   } finally {
     btn.disabled = false;
   }
 }
 
+async function humanizarRedacao() {
+  const textoParaHumanizar = saidaEl.value;
+  if (!textoParaHumanizar) { alert("Não há texto para humanizar. Gere uma redação ou cole um texto na caixa de saída."); return; }
+
+  const btn = document.querySelector('.humanizar');
+  btn.disabled = true;
+  showLoader("🤖 Humanizando texto");
+
+  try {
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: `Reescreva o texto a seguir para que soe mais natural e humano: "${textoParaHumanizar}"` })
+    });
+    const data = await res.json();
+    saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
+    if (res.ok) {
+      saidaEl.value = data.generatedText || "Erro ao humanizar o texto.";
+    } else {
+      saidaEl.value = data.error || "Ocorreu um erro desconhecido.";
+    }
+  } catch {
+    saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
+    saidaEl.value = "Erro de comunicação com o servidor.";
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+
 function copiarRedacao() {
-  const texto = document.getElementById("saida").innerText;
-  navigator.clipboard.writeText(texto).then(() => alert("Redação copiada!"));
+  const texto = saidaEl.value;
+  navigator.clipboard.writeText(texto).then(() => alert("Texto copiado para a área de transferência!"));
 }
 
 function apagarRedacao() {
-  document.getElementById("saida").innerText = "Sua redação aparecerá aqui...";
+  saidaEl.value = "";
+  saidaEl.placeholder = "Sua redação aparecerá aqui...";
   document.getElementById("tema").value = "";
 }
 </script>
