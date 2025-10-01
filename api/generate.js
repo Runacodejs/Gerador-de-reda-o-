@@ -2,18 +2,18 @@
 require('dotenv').config();
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-// Inicializa o cliente do Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
-// Exporta a função serverless que a Vercel irá executar
-export default async function handler(req, res) {
-  // Permite que a API seja chamada de qualquer origem (CORS) e especifica que é um POST
+// Usa module.exports para compatibilidade com o ambiente Node.js padrão da Vercel
+module.exports = async (req, res) => {
+  // Define os cabeçalhos para permitir CORS (Cross-Origin Resource Sharing)
+  // Isso permite que o seu site chame a API, mesmo que no futuro eles estejam em domínios diferentes.
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+  // A Vercel lida com requisições OPTIONS automaticamente, mas é uma boa prática ter isso.
   if (req.method === 'OPTIONS') {
-    // Lida com a requisição pre-flight do CORS
     return res.status(200).end();
   }
 
@@ -23,6 +23,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    // O corpo da requisição já é parseado pela Vercel em projetos de API como este.
     const { prompt } = req.body;
 
     if (!prompt) {
@@ -34,11 +35,10 @@ export default async function handler(req, res) {
     const response = await result.response;
     const text = response.text();
     
-    // Envia a resposta de volta para o frontend
     res.status(200).json({ generatedText: text });
 
   } catch (error) {
     console.error('Error in serverless function:', error);
     res.status(500).json({ error: 'Ocorreu um erro ao gerar o texto no servidor.' });
   }
-}
+};
