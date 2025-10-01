@@ -4,15 +4,11 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
-// Usa module.exports para compatibilidade com o ambiente Node.js padrão da Vercel
 module.exports = async (req, res) => {
-  // Define os cabeçalhos para permitir CORS (Cross-Origin Resource Sharing)
-  // Isso permite que o seu site chame a API, mesmo que no futuro eles estejam em domínios diferentes.
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // A Vercel lida com requisições OPTIONS automaticamente, mas é uma boa prática ter isso.
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -23,7 +19,6 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // O corpo da requisição já é parseado pela Vercel em projetos de API como este.
     const { prompt } = req.body;
 
     if (!prompt) {
@@ -39,6 +34,7 @@ module.exports = async (req, res) => {
 
   } catch (error) {
     console.error('Error in serverless function:', error);
-    res.status(500).json({ error: 'Ocorreu um erro ao gerar o texto no servidor.' });
+    // Modificado para enviar um erro mais detalhado para o frontend
+    res.status(500).json({ error: `Erro no servidor ao chamar a API do Google: ${error.message}` });
   }
 };
