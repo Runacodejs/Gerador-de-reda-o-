@@ -236,24 +236,33 @@ function apagarRedacao() {
   const tapyImg = new Image();
   tapyImg.src = "tapy.png";
 
-  let mascotX = -50; // Começa fora da tela
+  let mascotX = 0;
   let mascotY = mascotCanvas.height - 52;
   let mascotSpeed = 0.8;
-  let direction = 1;
+  let direction = 1; // 1 para direita, -1 para esquerda
   const mascotWidth = 48;
   const mascotHeight = 48;
 
   function updateMascot() {
     mascotX += mascotSpeed * direction;
-    if (mascotX > mascotCanvas.width) {
-      mascotX = -mascotWidth; // Reinicia do outro lado
+    // Inverte a direção ao atingir as bordas
+    if (mascotX > mascotCanvas.width - mascotWidth || mascotX < 0) {
+        direction *= -1;
     }
   }
 
   function drawMascot() {
     mascotCtx.clearRect(0, 0, mascotCanvas.width, mascotCanvas.height);
     if (tapyImg.complete) {
-        mascotCtx.drawImage(tapyImg, mascotX, mascotY, mascotWidth, mascotHeight);
+        mascotCtx.save(); // Salva o estado atual do canvas
+        if (direction === -1) { // Se estiver indo para a esquerda
+            mascotCtx.scale(-1, 1); // Inverte o canvas horizontalmente
+            // Desenha a imagem invertida, ajustando a posição X
+            mascotCtx.drawImage(tapyImg, -mascotX - mascotWidth, mascotY, mascotWidth, mascotHeight);
+        } else { // Se estiver indo para a direita
+            mascotCtx.drawImage(tapyImg, mascotX, mascotY, mascotWidth, mascotHeight);
+        }
+        mascotCtx.restore(); // Restaura o estado original do canvas
     }
   }
 
