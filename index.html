@@ -11,6 +11,7 @@
   --texto: #f0f0f0;
   --azul: #1E90FF;
   --verde: #2e8b57;
+  --roxo: #8a2be2;
   --azul-claro: #4682b4;
   --vermelho: #b22222;
   --laranja: #ff8c00;
@@ -78,6 +79,8 @@ button {
 
 button.gerar { background-color: var(--verde); color: #fff; }
 button.gerar:hover { background-color: #246f45; }
+button.gerar-outra { background-color: var(--roxo); color: #fff; }
+button.gerar-outra:hover { background-color: #7022b8; }
 button.humanizar { background-color: var(--laranja); color: #fff; }
 button.humanizar:hover { background-color: #cc7000; }
 button.copiar { background-color: var(--azul-claro); color: #fff; }
@@ -150,6 +153,7 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
   <textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
   <br>
   <button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
+  <button class="gerar-outra" onclick="gerarOutraRedacao()" style="display: none;">Gerar Outra</button>
   <button class="humanizar" onclick="humanizarRedacao()">Humanizar</button>
   <button class="copiar" onclick="copiarRedacao()">Copiar</button>
   <button class="apagar" onclick="apagarRedacao()">Apagar</button>
@@ -164,6 +168,7 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
 
 <script>
 const saidaEl = document.getElementById('saida');
+const gerarOutraBtn = document.querySelector('.gerar-outra');
 
 function showLoader(message) {
     saidaEl.value = ''; // Limpa a área de texto
@@ -172,24 +177,29 @@ function showLoader(message) {
 }
 
 
-async function gerarRedacao() {
+async function gerarRedacao(prompt) {
   const tema = document.getElementById("tema").value;
   if (!tema) { alert("Digite um tema primeiro!"); return; }
 
+  // Define um prompt padrão se nenhum for fornecido
+  const finalPrompt = prompt || `Escreva uma redação sobre o tema: "${tema}"`;
+  
   const btn = document.querySelector('.gerar');
   btn.disabled = true;
+  gerarOutraBtn.disabled = true;
   showLoader("⏳ Gerando redação");
 
   try {
     const res = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: `Escreva uma redação sobre o tema: "${tema}"` })
+      body: JSON.stringify({ prompt: finalPrompt })
     });
     const data = await res.json();
     saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
     if (res.ok) {
       saidaEl.value = data.generatedText || "Erro ao gerar redação.";
+      gerarOutraBtn.style.display = 'inline-block'; // Mostra o botão "Gerar Outra"
     } else {
       saidaEl.value = data.error || "Ocorreu um erro desconhecido.";
     }
@@ -198,7 +208,14 @@ async function gerarRedacao() {
     saidaEl.value = "Erro de comunicação com o servidor.";
   } finally {
     btn.disabled = false;
+    gerarOutraBtn.disabled = false;
   }
+}
+
+function gerarOutraRedacao() {
+    const tema = document.getElementById("tema").value;
+    const promptAlternativo = `Gere uma nova redação sobre o tema "${tema}", mas com uma abordagem e estrutura diferentes da anterior.`;
+    gerarRedacao(promptAlternativo); // Reutiliza a função gerarRedacao com o novo prompt
 }
 
 async function humanizarRedacao() {
@@ -240,6 +257,7 @@ function apagarRedacao() {
   saidaEl.value = "";
   saidaEl.placeholder = "Sua redação aparecerá aqui...";
   document.getElementById("tema").value = "";
+  gerarOutraBtn.style.display = 'none'; // Esconde o botão "Gerar Outra"
 }
 </script>
 </body>
