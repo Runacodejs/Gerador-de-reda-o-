@@ -25,6 +25,7 @@ body {
   color: var(--texto);
   font-size: 16px;
   line-height: 1.5;
+  padding-bottom: 80px; /* Espaço para o mascote no rodapé */
 }
 
 h1 {
@@ -88,31 +89,6 @@ button.copiar:hover { background-color: #35638a; }
 button.apagar { background-color: var(--vermelho); color: #fff; }
 button.apagar:hover { background-color: #8a1717; }
 
-
-.loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 18px;
-  color: var(--texto);
-  min-height: 220px;
-}
-
-.loader span {
-  display: inline-block;
-  animation: jump 0.6s infinite;
-}
-
-.loader span:nth-child(2) { animation-delay: 0.2s; }
-.loader span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes jump {
-  0%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-8px); }
-}
-
 footer {
   margin-top: 40px;
   text-align: center;
@@ -121,27 +97,15 @@ footer {
 }
 footer span { font-size: 12px; display: block; margin-top: 5px; }
 
-@media screen and (max-width: 768px) {
-  body { padding: 15px; font-size: 14px; }
-  h1 { font-size: 28px; margin-bottom: 20px; }
-  textarea { height: 120px; padding: 12px; font-size: 15px; border-radius: 10px; }
-  #saida { min-height: 180px; font-size: 14px; border-radius: 10px; }
-  button { width: 100%; margin: 8px 0; padding: 16px 20px; font-size: 16px; border-radius: 10px; }
-  footer { margin-top: 30px; font-size: 12px; }
-}
-
-@media screen and (max-width: 480px) {
-  body { padding: 10px; }
-  h1 { font-size: 24px; margin-bottom: 15px; }
-  textarea { height: 100px; font-size: 14px; }
-  #saida { padding: 12px; min-height: 160px; font-size: 14px; margin-top: 15px; }
-  button { padding: 14px 16px; font-size: 15px; }
-  footer { font-size: 11px; margin-top: 25px; }
-}
-
-@media (hover: none) and (pointer: coarse) {
-  button:hover { transform: none; }
-  button:active { transform: scale(0.98); opacity: 0.8; }
+#mascoteCanvas {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    pointer-events: none;
+    image-rendering: pixelated;
+    z-index: 1000;
 }
 </style>
 </head>
@@ -166,22 +130,21 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
   </footer>
 </div>
 
+<canvas id="mascoteCanvas"></canvas>
+
 <script>
 const saidaEl = document.getElementById('saida');
 const gerarOutraBtn = document.querySelector('.gerar-outra');
 
 function showLoader(message) {
-    saidaEl.value = ''; // Limpa a área de texto
-    // Adiciona um placeholder temporário para o loader
+    saidaEl.value = '';
     saidaEl.placeholder = `${message}...`;
 }
-
 
 async function gerarRedacao(prompt) {
   const tema = document.getElementById("tema").value;
   if (!tema) { alert("Digite um tema primeiro!"); return; }
 
-  // Define um prompt padrão se nenhum for fornecido
   const finalPrompt = prompt || `Escreva uma redação sobre o tema: "${tema}"`;
   
   const btn = document.querySelector('.gerar');
@@ -196,15 +159,15 @@ async function gerarRedacao(prompt) {
       body: JSON.stringify({ prompt: finalPrompt })
     });
     const data = await res.json();
-    saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
+    saidaEl.placeholder = "Sua redação aparecerá aqui...";
     if (res.ok) {
       saidaEl.value = data.generatedText || "Erro ao gerar redação.";
-      gerarOutraBtn.style.display = 'inline-block'; // Mostra o botão "Gerar Outra"
+      gerarOutraBtn.style.display = 'inline-block';
     } else {
       saidaEl.value = data.error || "Ocorreu um erro desconhecido.";
     }
   } catch {
-    saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
+    saidaEl.placeholder = "Sua redação aparecerá aqui...";
     saidaEl.value = "Erro de comunicação com o servidor.";
   } finally {
     btn.disabled = false;
@@ -215,7 +178,7 @@ async function gerarRedacao(prompt) {
 function gerarOutraRedacao() {
     const tema = document.getElementById("tema").value;
     const promptAlternativo = `Gere uma nova redação sobre o tema "${tema}", mas com uma abordagem e estrutura diferentes da anterior.`;
-    gerarRedacao(promptAlternativo); // Reutiliza a função gerarRedacao com o novo prompt
+    gerarRedacao(promptAlternativo);
 }
 
 async function humanizarRedacao() {
@@ -233,20 +196,19 @@ async function humanizarRedacao() {
       body: JSON.stringify({ prompt: `Reescreva o texto a seguir para que soe mais natural e humano: "${textoParaHumanizar}"` })
     });
     const data = await res.json();
-    saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
+    saidaEl.placeholder = "Sua redação aparecerá aqui...";
     if (res.ok) {
       saidaEl.value = data.generatedText || "Erro ao humanizar o texto.";
     } else {
       saidaEl.value = data.error || "Ocorreu um erro desconhecido.";
     }
   } catch {
-    saidaEl.placeholder = "Sua redação aparecerá aqui..."; // Restaura o placeholder
+    saidaEl.placeholder = "Sua redação aparecerá aqui...";
     saidaEl.value = "Erro de comunicação com o servidor.";
   } finally {
     btn.disabled = false;
   }
 }
-
 
 function copiarRedacao() {
   const texto = saidaEl.value;
@@ -257,8 +219,54 @@ function apagarRedacao() {
   saidaEl.value = "";
   saidaEl.placeholder = "Sua redação aparecerá aqui...";
   document.getElementById("tema").value = "";
-  gerarOutraBtn.style.display = 'none'; // Esconde o botão "Gerar Outra"
+  gerarOutraBtn.style.display = 'none';
 }
+</script>
+
+<script>
+  const mascotCanvas = document.getElementById("mascoteCanvas");
+  const mascotCtx = mascotCanvas.getContext("2d");
+
+  function resizeCanvas() {
+      mascotCanvas.width = window.innerWidth;
+      mascotCanvas.height = 70;
+  }
+  resizeCanvas();
+
+  const tapyImg = new Image();
+  tapyImg.src = "tapy.png";
+
+  let mascotX = -50; // Começa fora da tela
+  let mascotY = mascotCanvas.height - 52;
+  let mascotSpeed = 0.8;
+  let direction = 1;
+  const mascotWidth = 48;
+  const mascotHeight = 48;
+
+  function updateMascot() {
+    mascotX += mascotSpeed * direction;
+    if (mascotX > mascotCanvas.width) {
+      mascotX = -mascotWidth; // Reinicia do outro lado
+    }
+  }
+
+  function drawMascot() {
+    mascotCtx.clearRect(0, 0, mascotCanvas.width, mascotCanvas.height);
+    if (tapyImg.complete) {
+        mascotCtx.drawImage(tapyImg, mascotX, mascotY, mascotWidth, mascotHeight);
+    }
+  }
+
+  function mascotLoop() {
+    updateMascot();
+    drawMascot();
+    requestAnimationFrame(mascotLoop);
+  }
+  
+  tapyImg.onload = mascotLoop;
+  if (tapyImg.complete) mascotLoop();
+
+  window.addEventListener('resize', resizeCanvas);
 </script>
 </body>
 </html>
