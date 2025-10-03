@@ -25,7 +25,7 @@ body {
   color: var(--texto);
   font-size: 16px;
   line-height: 1.5;
-  padding-bottom: 80px; /* Espaço para o mascote no rodapé */
+  padding-bottom: 80px;
 }
 
 h1 {
@@ -41,7 +41,7 @@ h1 {
   width: 100%;
 }
 
-textarea {
+textarea, #titulo {
   width: 100%;
   padding: 12px;
   background-color: var(--fundo-card);
@@ -49,20 +49,33 @@ textarea {
   border-radius: 12px;
   color: var(--texto);
   font-size: 16px;
-  resize: vertical;
   box-sizing: border-box;
   -webkit-appearance: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+textarea {
+    resize: vertical;
+}
+
 #tema { height: 140px; margin: 10px 0; }
+
+#tituloContainer {
+    margin-top: 20px;
+}
+
+#titulo {
+    font-weight: bold;
+    text-align: center;
+    background-color: #2a2a2a;
+}
 
 #saida {
   min-height: 220px;
   white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  margin-top: 20px;
+  margin-top: 10px;
   position: relative;
 }
 
@@ -122,6 +135,10 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
   <button class="copiar" onclick="copiarRedacao()">Copiar</button>
   <button class="apagar" onclick="apagarRedacao()">Apagar</button>
 
+  <div id="tituloContainer" style="display: none;">
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" readonly>
+  </div>
   <textarea id="saida" placeholder="Sua redação aparecerá aqui..."></textarea>
 
   <footer>
@@ -134,96 +151,115 @@ footer span { font-size: 12px; display: block; margin-top: 5px; }
 
 <script>
 const saidaEl = document.getElementById('saida');
+const tituloEl = document.getElementById('titulo');
+const tituloContainer = document.getElementById('tituloContainer');
 const gerarOutraBtn = document.querySelector('.gerar-outra');
 
-function showLoader(message) {
+function showLoader(message, clearTitle = true) {
+    if (clearTitle) {
+        tituloEl.value = '';
+        tituloContainer.style.display = 'none';
+    }
     saidaEl.value = '';
     saidaEl.placeholder = `${message}...`;
 }
 
-async function gerarRedacao(prompt) {
-  const tema = document.getElementById("tema").value;
-  if (!tema) { alert("Digite um tema primeiro!"); return; }
-
-  const finalPrompt = prompt || `Escreva uma redação sobre o tema: "${tema}"`;
-  
-  const btn = document.querySelector('.gerar');
-  btn.disabled = true;
-  gerarOutraBtn.disabled = true;
-  showLoader("⏳ Gerando redação");
-
-  try {
+async function callApi(prompt) {
     const res = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: finalPrompt })
+      body: JSON.stringify({ prompt })
     });
-    const data = await res.json();
-    saidaEl.placeholder = "Sua redação aparecerá aqui...";
-    if (res.ok) {
-      saidaEl.value = data.generatedText || "Erro ao gerar redação.";
-      gerarOutraBtn.style.display = 'inline-block';
-    } else {
-      saidaEl.value = data.error || "Ocorreu um erro desconhecido.";
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Ocorreu um erro desconhecido.");
     }
-  } catch {
-    saidaEl.placeholder = "Sua redação aparecerá aqui...";
-    saidaEl.value = "Erro de comunicação com o servidor.";
+    const data = await res.json();
+    return data.generatedText || "Erro ao gerar conteúdo.";
+}
+
+async function gerarRedacao(isRetry = false) {
+  const tema = document.getElementById("tema").value;
+  if (!tema) { alert("Digite um tema primeiro!"); return; }
+
+  const btn = document.querySelector('.gerar');
+  btn.disabled = true;
+  gerarOutraBtn.disabled = true;
+
+  try {
+    showLoader("⏳ Gerando título criativo");
+    const promptTitulo = `Gere um título criativo e curto para uma redação com o tema: "${tema}". O título não deve ter aspas.`;
+    const tituloGerado = await callApi(promptTitulo);
+    
+    tituloEl.value = tituloGerado;
+    tituloContainer.style.display = 'block';
+
+    showLoader(`⏳ Gerando redação com o título: "${tituloGerado}"`, false);
+    const promptRedacao = isRetry
+        ? `Gere uma nova redação sobre o tema "${tema}", com o título "${tituloGerado}", mas com uma abordagem e estrutura diferentes da anterior.`
+        : `Escreva uma redação sobre o tema: "${tema}", utilizando o título "${tituloGerado}". Não inclua o título novamente no corpo da redação.`;
+    
+    const redacaoGerada = await callApi(promptRedacao);
+
+    saidaEl.value = redacaoGerada;
+    gerarOutraBtn.style.display = 'inline-block';
+
+  } catch (err) {
+    saidaEl.value = err.message;
   } finally {
+    saidaEl.placeholder = "Sua redação aparecerá aqui...";
     btn.disabled = false;
     gerarOutraBtn.disabled = false;
   }
 }
 
 function gerarOutraRedacao() {
-    const tema = document.getElementById("tema").value;
-    const promptAlternativo = `Gere uma nova redação sobre o tema "${tema}", mas com uma abordagem e estrutura diferentes da anterior.`;
-    gerarRedacao(promptAlternativo);
+    gerarRedacao(true);
 }
 
 async function humanizarRedacao() {
   const textoParaHumanizar = saidaEl.value;
-  if (!textoParaHumanizar) { alert("Não há texto para humanizar. Gere uma redação ou cole um texto na caixa de saída."); return; }
+  if (!textoParaHumanizar) { alert("Não há texto para humanizar."); return; }
 
   const btn = document.querySelector('.humanizar');
   btn.disabled = true;
-  showLoader("🤖 Humanizando texto");
+  showLoader("🤖 Humanizando texto", false);
 
   try {
-    const res = await fetch("/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: `Reescreva o texto a seguir para que soe mais natural e humano: "${textoParaHumanizar}"` })
-    });
-    const data = await res.json();
-    saidaEl.placeholder = "Sua redação aparecerá aqui...";
-    if (res.ok) {
-      saidaEl.value = data.generatedText || "Erro ao humanizar o texto.";
-    } else {
-      saidaEl.value = data.error || "Ocorreu um erro desconhecido.";
-    }
-  } catch {
-    saidaEl.placeholder = "Sua redação aparecerá aqui...";
-    saidaEl.value = "Erro de comunicação com o servidor.";
+    const prompt = `Reescreva o texto a seguir para que soe mais natural e humano, mantendo o sentido original: "${textoParaHumanizar}"`;
+    const textoHumanizado = await callApi(prompt);
+    saidaEl.value = textoHumanizado;
+  } catch(err) {
+    saidaEl.value = err.message;
   } finally {
+    saidaEl.placeholder = "Sua redação aparecerá aqui...";
     btn.disabled = false;
   }
 }
 
 function copiarRedacao() {
+  const titulo = tituloEl.value;
   const texto = saidaEl.value;
-  navigator.clipboard.writeText(texto).then(() => alert("Texto copiado para a área de transferência!"));
+  if (!texto) { alert("Nada para copiar!"); return; }
+  
+  const conteudoCompleto = `Título: ${titulo}
+
+${texto}`;
+  navigator.clipboard.writeText(conteudoCompleto).then(() => alert("Título e redação copiados para a área de transferência!"));
 }
 
 function apagarRedacao() {
   saidaEl.value = "";
   saidaEl.placeholder = "Sua redação aparecerá aqui...";
+  tituloEl.value = "";
+  tituloContainer.style.display = 'none';
   document.getElementById("tema").value = "";
   gerarOutraBtn.style.display = 'none';
 }
 </script>
 
 <script>
+  // Script do mascote (sem alterações)
   const mascotCanvas = document.getElementById("mascoteCanvas");
   const mascotCtx = mascotCanvas.getContext("2d");
 
@@ -239,13 +275,12 @@ function apagarRedacao() {
   let mascotX = 0;
   let mascotY = mascotCanvas.height - 52;
   let mascotSpeed = 0.8;
-  let direction = 1; // 1 para direita, -1 para esquerda
+  let direction = 1;
   const mascotWidth = 48;
   const mascotHeight = 48;
 
   function updateMascot() {
     mascotX += mascotSpeed * direction;
-    // Inverte a direção ao atingir as bordas
     if (mascotX > mascotCanvas.width - mascotWidth || mascotX < 0) {
         direction *= -1;
     }
@@ -254,15 +289,14 @@ function apagarRedacao() {
   function drawMascot() {
     mascotCtx.clearRect(0, 0, mascotCanvas.width, mascotCanvas.height);
     if (tapyImg.complete) {
-        mascotCtx.save(); // Salva o estado atual do canvas
-        if (direction === -1) { // Se estiver indo para a esquerda
-            mascotCtx.scale(-1, 1); // Inverte o canvas horizontalmente
-            // Desenha a imagem invertida, ajustando a posição X
+        mascotCtx.save();
+        if (direction === -1) {
+            mascotCtx.scale(-1, 1);
             mascotCtx.drawImage(tapyImg, -mascotX - mascotWidth, mascotY, mascotWidth, mascotHeight);
-        } else { // Se estiver indo para a direita
+        } else {
             mascotCtx.drawImage(tapyImg, mascotX, mascotY, mascotWidth, mascotHeight);
         }
-        mascotCtx.restore(); // Restaura o estado original do canvas
+        mascotCtx.restore();
     }
   }
 
