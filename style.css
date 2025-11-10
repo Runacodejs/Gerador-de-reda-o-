@@ -1,0 +1,115 @@
+
+:root {
+  --fundo: #f0f2f5;
+  --fundo-card: #ffffff;
+  --texto: #333333;
+  --primaria: #007bff;
+  --primaria-hover: #0056b3;
+  --secundaria: #6c757d;
+  --secundaria-hover: #5a6268;
+  --borda: #dee2e6;
+  --sombra: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: var(--fundo);
+  color: var(--texto);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+  color: var(--texto);
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 30px;
+  background-color: var(--fundo-card);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px var(--sombra);
+}
+
+textarea, #titulo {
+  width: 100%;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  color: var(--texto);
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  resize: vertical;
+}
+
+#tema { 
+    height: 120px; 
+    margin-bottom: 20px;
+}
+
+.botoes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 44px;
+  flex-grow: 1;
+}
+
+button.primaria { background-color: var(--primaria); color: #fff; }
+button.primaria:hover { background-color: var(--primaria-hover); }
+button.secundaria { background-color: var(--secundaria); color: #fff; }
+button.secundaria:hover { background-color: var(--secundaria-hover); }
+
+#tituloContainer {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#titulo {
+    font-weight: bold;
+    text-align: center;
+}
+
+#saida {
+  min-height: 250px;
+  white-space: pre-line;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background-color: #f8f9fa;
+}
+
+footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+footer span { 
+    font-size: 12px; 
+    display: block; 
+    margin-top: 5px; 
+}
