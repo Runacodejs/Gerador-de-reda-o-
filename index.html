@@ -6,15 +6,15 @@
 <title>Redasp Master Turbo</title>
 <style>
 :root {
-  --fundo: #121212;
-  --fundo-card: #1e1e1e;
-  --texto: #f0f0f0;
-  --azul: #1E90FF;
-  --verde: #2e8b57;
-  --roxo: #8a2be2;
-  --azul-claro: #4682b4;
-  --vermelho: #b22222;
-  --laranja: #ff8c00;
+  --fundo: #f0f2f5;
+  --fundo-card: #ffffff;
+  --texto: #333333;
+  --primaria: #007bff;
+  --primaria-hover: #0056b3;
+  --secundaria: #6c757d;
+  --secundaria-hover: #5a6268;
+  --borda: #dee2e6;
+  --sombra: rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -24,136 +24,142 @@ body {
   background-color: var(--fundo);
   color: var(--texto);
   font-size: 16px;
-  line-height: 1.5;
-  padding-bottom: 80px;
+  line-height: 1.6;
 }
 
-h1 {
-  color: var(--azul);
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 32px;
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+  color: var(--texto);
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
 }
 
 .container {
   max-width: 800px;
   margin: auto;
-  width: 100%;
+  padding: 30px;
+  background-color: var(--fundo-card);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px var(--sombra);
 }
 
 textarea, #titulo {
   width: 100%;
   padding: 12px;
-  background-color: var(--fundo-card);
-  border: 1px solid #333;
-  border-radius: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
   color: var(--texto);
   font-size: 16px;
   box-sizing: border-box;
-  -webkit-appearance: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  resize: vertical;
 }
 
-textarea {
-    resize: vertical;
+#tema { 
+    height: 120px; 
+    margin-bottom: 20px;
 }
 
-#tema { height: 140px; margin: 10px 0; }
+.botoes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 44px;
+  flex-grow: 1;
+}
+
+button.primaria { background-color: var(--primaria); color: #fff; }
+button.primaria:hover { background-color: var(--primaria-hover); }
+button.secundaria { background-color: var(--secundaria); color: #fff; }
+button.secundaria:hover { background-color: var(--secundaria-hover); }
 
 #tituloContainer {
     margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 #titulo {
     font-weight: bold;
     text-align: center;
-    background-color: #2a2a2a;
 }
 
 #saida {
-  min-height: 220px;
+  min-height: 250px;
   white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  margin-top: 10px;
-  position: relative;
+  background-color: #f8f9fa;
 }
-
-button {
-  margin: 5px 5px 5px 0;
-  padding: 14px 24px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  min-height: 48px;
-}
-
-button.gerar { background-color: var(--verde); color: #fff; }
-button.gerar:hover { background-color: #246f45; }
-button.gerar-outra { background-color: var(--roxo); color: #fff; }
-button.gerar-outra:hover { background-color: #7022b8; }
-button.humanizar { background-color: var(--laranja); color: #fff; }
-button.humanizar:hover { background-color: #cc7000; }
-button.copiar { background-color: var(--azul-claro); color: #fff; }
-button.copiar:hover { background-color: #35638a; }
-button.apagar { background-color: var(--vermelho); color: #fff; }
-button.apagar:hover { background-color: #8a1717; }
 
 footer {
   margin-top: 40px;
   text-align: center;
-  color: #aaa;
+  color: #888;
   font-size: 14px;
 }
-footer span { font-size: 12px; display: block; margin-top: 5px; }
-
-#mascoteCanvas {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    pointer-events: none;
-    image-rendering: pixelated;
-    z-index: 1000;
+footer span { 
+    font-size: 12px; 
+    display: block; 
+    margin-top: 5px; 
 }
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>📝 Redasp Master Turbo</h1>
 
+<div class="header">
+    <h1>📝 Redasp Master Turbo</h1>
+</div>
+
+<div class="container">
   <label for="tema">Tema da Redação:</label>
   <textarea id="tema" placeholder="Digite o tema da redação..."></textarea>
-  <br>
-  <button class="gerar" onclick="gerarRedacao()">Gerar Redação</button>
-  <button class="gerar-outra" onclick="gerarOutraRedacao()" style="display: none;">Gerar Outra</button>
-  <button class="humanizar" onclick="humanizarRedacao()">Humanizar</button>
-  <button class="copiar" onclick="copiarRedacao()">Copiar</button>
-  <button class="apagar" onclick="apagarRedacao()">Apagar</button>
+  
+  <div class="botoes-container">
+      <button class="primaria" onclick="gerarRedacao()">Gerar Redação</button>
+      <button class="primaria" onclick="gerarOutraRedacao()" style="display: none;">Gerar Outra</button>
+      <button class="secundaria" onclick="humanizarRedacao()">Humanizar</button>
+      <button class="secundaria" onclick="copiarRedacao()">Copiar</button>
+      <button class="secundaria" onclick="apagarRedacao()">Apagar</button>
+  </div>
 
   <div id="tituloContainer" style="display: none;">
       <label for="titulo">Título:</label>
       <input type="text" id="titulo" readonly>
   </div>
+  
   <textarea id="saida" placeholder="Sua redação aparecerá aqui..."></textarea>
 
-  <footer>
-    Desenvolvido por <strong style="color: var(--azul);">kel_mod</strong> | Servidor: <strong style="color: var(--azul);">Runacode</strong>
-    <span>© 2025 Todos os direitos reservados</span>
-  </footer>
 </div>
 
-<canvas id="mascoteCanvas"></canvas>
+<footer>
+    Desenvolvido por <strong>kel_mod</strong> | Servidor: <strong>Runacode</strong>
+    <span>© 2025 Todos os direitos reservados</span>
+</footer>
 
 <script>
 const saidaEl = document.getElementById('saida');
 const tituloEl = document.getElementById('titulo');
 const tituloContainer = document.getElementById('tituloContainer');
-const gerarOutraBtn = document.querySelector('.gerar-outra');
+const gerarOutraBtn = document.querySelector('.botoes-container button[onclick="gerarOutraRedacao()"]');
+const gerarBtn = document.querySelector('.botoes-container button[onclick="gerarRedacao()"]');
+const humanizarBtn = document.querySelector('.botoes-container button[onclick="humanizarRedacao()"]');
 
 function showLoader(message, clearTitle = true) {
     if (clearTitle) {
@@ -178,26 +184,30 @@ async function callApi(prompt) {
     return data.generatedText || "Erro ao gerar conteúdo.";
 }
 
+function setButtonsDisabled(disabled) {
+    gerarBtn.disabled = disabled;
+    gerarOutraBtn.disabled = disabled;
+    humanizarBtn.disabled = disabled;
+}
+
 async function gerarRedacao(isRetry = false) {
   const tema = document.getElementById("tema").value;
   if (!tema) { alert("Digite um tema primeiro!"); return; }
 
-  const btn = document.querySelector('.gerar');
-  btn.disabled = true;
-  gerarOutraBtn.disabled = true;
+  setButtonsDisabled(true);
 
   try {
     showLoader("⏳ Gerando título criativo");
-    const promptTitulo = `Gere um título criativo e curto para uma redação com o tema: "${tema}". O título não deve ter aspas.`;
+    const promptTitulo = `Gere um título criativo e curto para uma redação com o tema: \"${tema}\". O título não deve ter aspas.`;
     const tituloGerado = await callApi(promptTitulo);
     
     tituloEl.value = tituloGerado;
     tituloContainer.style.display = 'block';
 
-    showLoader(`⏳ Gerando redação com o título: "${tituloGerado}"`, false);
+    showLoader(`⏳ Gerando redação com o título: \"${tituloGerado}\"`, false);
     const promptRedacao = isRetry
-        ? `Gere uma nova redação sobre o tema "${tema}", com o título "${tituloGerado}", mas com uma abordagem e estrutura diferentes da anterior.`
-        : `Escreva uma redação sobre o tema: "${tema}", utilizando o título "${tituloGerado}". Não inclua o título novamente no corpo da redação.`;
+        ? `Gere uma nova redação sobre o tema \"${tema}\", com o título \"${tituloGerado}\", mas com uma abordagem e estrutura diferentes da anterior.`
+        : `Escreva uma redação sobre o tema: \"${tema}\", utilizando o título \"${tituloGerado}\". Não inclua o título novamente no corpo da redação.`;
     
     const redacaoGerada = await callApi(promptRedacao);
 
@@ -208,8 +218,7 @@ async function gerarRedacao(isRetry = false) {
     saidaEl.value = err.message;
   } finally {
     saidaEl.placeholder = "Sua redação aparecerá aqui...";
-    btn.disabled = false;
-    gerarOutraBtn.disabled = false;
+    setButtonsDisabled(false);
   }
 }
 
@@ -221,19 +230,18 @@ async function humanizarRedacao() {
   const textoParaHumanizar = saidaEl.value;
   if (!textoParaHumanizar) { alert("Não há texto para humanizar."); return; }
 
-  const btn = document.querySelector('.humanizar');
-  btn.disabled = true;
+  setButtonsDisabled(true);
   showLoader("🤖 Humanizando texto", false);
 
   try {
-    const prompt = `Reescreva o texto a seguir para que soe mais natural e humano, mantendo o sentido original: "${textoParaHumanizar}"`;
+    const prompt = `Reescreva o texto a seguir para que soe mais natural e humano, mantendo o sentido original: \"${textoParaHumanizar}\"`;
     const textoHumanizado = await callApi(prompt);
     saidaEl.value = textoHumanizado;
   } catch(err) {
     saidaEl.value = err.message;
   } finally {
     saidaEl.placeholder = "Sua redação aparecerá aqui...";
-    btn.disabled = false;
+    setButtonsDisabled(false);
   }
 }
 
@@ -242,9 +250,7 @@ function copiarRedacao() {
   const texto = saidaEl.value;
   if (!texto) { alert("Nada para copiar!"); return; }
   
-  const conteudoCompleto = `Título: ${titulo}
-
-${texto}`;
+  const conteudoCompleto = `Título: ${titulo}\n\n${texto}`;
   navigator.clipboard.writeText(conteudoCompleto).then(() => alert("Título e redação copiados para a área de transferência!"));
 }
 
@@ -256,60 +262,6 @@ function apagarRedacao() {
   document.getElementById("tema").value = "";
   gerarOutraBtn.style.display = 'none';
 }
-</script>
-
-<script>
-  // Script do mascote (sem alterações)
-  const mascotCanvas = document.getElementById("mascoteCanvas");
-  const mascotCtx = mascotCanvas.getContext("2d");
-
-  function resizeCanvas() {
-      mascotCanvas.width = window.innerWidth;
-      mascotCanvas.height = 70;
-  }
-  resizeCanvas();
-
-  const tapyImg = new Image();
-  tapyImg.src = "tapy.png";
-
-  let mascotX = 0;
-  let mascotY = mascotCanvas.height - 52;
-  let mascotSpeed = 0.8;
-  let direction = 1;
-  const mascotWidth = 48;
-  const mascotHeight = 48;
-
-  function updateMascot() {
-    mascotX += mascotSpeed * direction;
-    if (mascotX > mascotCanvas.width - mascotWidth || mascotX < 0) {
-        direction *= -1;
-    }
-  }
-
-  function drawMascot() {
-    mascotCtx.clearRect(0, 0, mascotCanvas.width, mascotCanvas.height);
-    if (tapyImg.complete) {
-        mascotCtx.save();
-        if (direction === -1) {
-            mascotCtx.scale(-1, 1);
-            mascotCtx.drawImage(tapyImg, -mascotX - mascotWidth, mascotY, mascotWidth, mascotHeight);
-        } else {
-            mascotCtx.drawImage(tapyImg, mascotX, mascotY, mascotWidth, mascotHeight);
-        }
-        mascotCtx.restore();
-    }
-  }
-
-  function mascotLoop() {
-    updateMascot();
-    drawMascot();
-    requestAnimationFrame(mascotLoop);
-  }
-  
-  tapyImg.onload = mascotLoop;
-  if (tapyImg.complete) mascotLoop();
-
-  window.addEventListener('resize', resizeCanvas);
 </script>
 </body>
 </html>

@@ -2,7 +2,6 @@
 require('dotenv').config();
 const OpenAI = require('openai');
 
-// Inicializa o cliente da OpenAI com a nova chave de API
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -28,22 +27,31 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'O prompt é obrigatório.' });
     }
 
-    // Chama a API da OpenAI para gerar o texto
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo", // Um modelo rápido e eficiente
+      model: "gpt-3.5-turbo",
       messages: [
-        { role: "system", content: "Você é um assistente de escrita criativa que gera redações completas." },
+        { 
+          role: "system", 
+          content: "Você é um assistente especialista em redação. Sua tarefa é gerar redações bem estruturadas, com introdução, desenvolvimento e conclusão, sobre o tema fornecido. Use uma linguagem clara, coesa e persuasiva." 
+        },
         { role: "user", content: prompt }
       ],
+      max_tokens: 1024,
+      temperature: 0.7,
     });
 
-    // Extrai o texto gerado da resposta
-    const generatedText = completion.choices[0].message.content;
+    const generatedText = completion.choices[0].message.content.trim();
 
-    res.status(200).json({ generatedText: generatedText });
+    res.status(200).json({ generatedText });
 
   } catch (error) {
     console.error('Error calling OpenAI API:', error);
-    res.status(500).json({ error: `Erro no servidor ao chamar a API da OpenAI: ${error.message}` });
+    let errorMessage = 'Ocorreu um erro no servidor ao processar sua solicitação.';
+    if (error.response) {
+      errorMessage = `Erro da API: ${error.response.status} ${error.response.data.error.message}`;
+    } else if (error.message) {
+      errorMessage = `Erro na solicitação: ${error.message}`;
+    }
+    res.status(500).json({ error: errorMessage });
   }
 };
