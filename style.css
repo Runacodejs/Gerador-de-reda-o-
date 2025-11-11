@@ -1,14 +1,14 @@
 
 :root {
-  --fundo: #f0f2f5;
-  --fundo-card: #ffffff;
-  --texto: #333333;
+  --fundo: #1a1a1a; /* Fundo escuro */
+  --fundo-card: #2a2a2a; /* Fundo do card mais claro que o fundo */
+  --texto: #ffffff; /* Texto branco */
   --primaria: #007bff;
   --primaria-hover: #0056b3;
   --secundaria: #6c757d;
   --secundaria-hover: #5a6268;
-  --borda: #dee2e6;
-  --sombra: rgba(0, 0, 0, 0.1);
+  --borda: #444444; /* Borda mais clara */
+  --sombra: rgba(0, 0, 0, 0.5); /* Sombra mais pronunciada */
 }
 
 body {
@@ -45,7 +45,7 @@ body {
 textarea, #titulo {
   width: 100%;
   padding: 12px;
-  background-color: #f8f9fa;
+  background-color: #333333; /* Fundo do textarea mais escuro */
   border: 1px solid var(--borda);
   border-radius: 8px;
   color: var(--texto);
@@ -99,7 +99,7 @@ button.secundaria:hover { background-color: var(--secundaria-hover); }
   white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  background-color: #f8f9fa;
+  background-color: #333333; /* Fundo da saida mais escuro */
 }
 
 footer {
